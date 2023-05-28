@@ -14,7 +14,6 @@ namespace Bin{
 
 
     public:
-        int method;
         int column_selection = 0;
         double cutoff;
         int sample_size;
@@ -38,23 +37,23 @@ namespace Bin{
         double stdev_rc = 0.;
         double median_rc = 0.;
 
-        virtual  ~Pricer();
+        virtual  ~Pricer(){};
         virtual void run() {std::cout << "error, in pricer!!!\n\n";};
 
-        vector<long> sort_indexes_inc(const vector<double> &v);
-        long current_time_for_seeding();
-        vector<long> sort_indexes_dec(const vector<double> &v); 
+        // vector<long> sort_indexes_inc(const vector<double> &v);
+        // long current_time_for_seeding();
+        // vector<long> sort_indexes_dec(const vector<double> &v); 
 
 
-        double get_wall_time();
+        // double get_wall_time();
 
-        void compute_statistics();
+        // void compute_statistics();
 
         
 
 
 
-    }
+    };
 
 
 }

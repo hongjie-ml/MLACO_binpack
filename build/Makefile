@@ -177,6 +177,33 @@ src/instance.cpp.s:
 	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/instance.cpp.s
 .PHONY : src/instance.cpp.s
 
+src/knapscak_solver.o: src/knapscak_solver.cpp.o
+
+.PHONY : src/knapscak_solver.o
+
+# target to build an object file
+src/knapscak_solver.cpp.o:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.o
+.PHONY : src/knapscak_solver.cpp.o
+
+src/knapscak_solver.i: src/knapscak_solver.cpp.i
+
+.PHONY : src/knapscak_solver.i
+
+# target to preprocess a source file
+src/knapscak_solver.cpp.i:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.i
+.PHONY : src/knapscak_solver.cpp.i
+
+src/knapscak_solver.s: src/knapscak_solver.cpp.s
+
+.PHONY : src/knapscak_solver.s
+
+# target to generate assembly for a file
+src/knapscak_solver.cpp.s:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.s
+.PHONY : src/knapscak_solver.cpp.s
+
 src/main.o: src/main.cpp.o
 
 .PHONY : src/main.o
@@ -204,6 +231,33 @@ src/main.cpp.s:
 	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/pricer.o: src/pricer.cpp.o
+
+.PHONY : src/pricer.o
+
+# target to build an object file
+src/pricer.cpp.o:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/pricer.cpp.o
+.PHONY : src/pricer.cpp.o
+
+src/pricer.i: src/pricer.cpp.i
+
+.PHONY : src/pricer.i
+
+# target to preprocess a source file
+src/pricer.cpp.i:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/pricer.cpp.i
+.PHONY : src/pricer.cpp.i
+
+src/pricer.s: src/pricer.cpp.s
+
+.PHONY : src/pricer.s
+
+# target to generate assembly for a file
+src/pricer.cpp.s:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/pricer.cpp.s
+.PHONY : src/pricer.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -219,9 +273,15 @@ help:
 	@echo "... src/instance.o"
 	@echo "... src/instance.i"
 	@echo "... src/instance.s"
+	@echo "... src/knapscak_solver.o"
+	@echo "... src/knapscak_solver.i"
+	@echo "... src/knapscak_solver.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/pricer.o"
+	@echo "... src/pricer.i"
+	@echo "... src/pricer.s"
 .PHONY : help
 
 

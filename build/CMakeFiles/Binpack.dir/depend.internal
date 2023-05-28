@@ -5,12 +5,23 @@ CMakeFiles/Binpack.dir/src/cg.cpp.o
  /home/kevshiba/reproduce/binpack/src/cg.cpp
  /home/kevshiba/reproduce/binpack/src/cg.h
  /home/kevshiba/reproduce/binpack/src/instance.h
+ /home/kevshiba/reproduce/binpack/src/knapsack_solver.h
+ /home/kevshiba/reproduce/binpack/src/pricer.h
  /opt/gurobi1001/linux64/include/gurobi_c++.h
  /opt/gurobi1001/linux64/include/gurobi_c.h
 CMakeFiles/Binpack.dir/src/instance.cpp.o
  /home/kevshiba/reproduce/binpack/src/instance.cpp
  /home/kevshiba/reproduce/binpack/src/instance.h
+CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.o
+ /home/kevshiba/reproduce/binpack/src/knapsack_solver.h
+ /home/kevshiba/reproduce/binpack/src/knapscak_solver.cpp
+ /home/kevshiba/reproduce/binpack/src/pricer.h
 CMakeFiles/Binpack.dir/src/main.cpp.o
  /home/kevshiba/reproduce/binpack/src/cg.h
  /home/kevshiba/reproduce/binpack/src/instance.h
+ /home/kevshiba/reproduce/binpack/src/knapsack_solver.h
  /home/kevshiba/reproduce/binpack/src/main.cpp
+ /home/kevshiba/reproduce/binpack/src/pricer.h
+CMakeFiles/Binpack.dir/src/pricer.cpp.o
+ /home/kevshiba/reproduce/binpack/src/pricer.cpp
+ /home/kevshiba/reproduce/binpack/src/pricer.h

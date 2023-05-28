@@ -6,19 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/kevshiba/reproduce/binpack/src/cg.cpp
-cg.h
-/home/kevshiba/reproduce/binpack/src/cg.h
-stdlib.h
--
-stdio.h
--
-gurobi_c++.h
-/home/kevshiba/reproduce/binpack/src/gurobi_c++.h
-
 /home/kevshiba/reproduce/binpack/src/cg.h
 instance.h
 /home/kevshiba/reproduce/binpack/src/instance.h
+knapsack_solver.h
+/home/kevshiba/reproduce/binpack/src/knapsack_solver.h
 random
 -
 climits
@@ -42,17 +34,23 @@ string
 sstream
 -
 
-/opt/gurobi1001/linux64/include/gurobi_c++.h
-iostream
--
+/home/kevshiba/reproduce/binpack/src/knapsack_solver.h
 vector
 -
-string
+iostream
 -
-gurobi_c.h
-/opt/gurobi1001/linux64/include/gurobi_c.h
+pricer.h
+/home/kevshiba/reproduce/binpack/src/pricer.h
 
-/opt/gurobi1001/linux64/include/gurobi_c.h
-stdio.h
+/home/kevshiba/reproduce/binpack/src/main.cpp
+instance.h
+/home/kevshiba/reproduce/binpack/src/instance.h
+cg.h
+/home/kevshiba/reproduce/binpack/src/cg.h
+
+/home/kevshiba/reproduce/binpack/src/pricer.h
+vector
+-
+iostream
 -
 

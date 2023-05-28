@@ -1,4 +1,4 @@
-#ifndef CG_H
+ #ifndef CG_H
 #define CG_H
 
 #include "instance.h"
@@ -34,9 +34,10 @@ namespace Bin{
         int capacity;
         vector<int> weight;
         vector<int> pattern;
-       
+        vector<int> lp_vbasis;
+        vector<int> lp_cbasis;
         
-        vector<int> optimal_pattern;
+        
 
         void initializing_parameters();
 
@@ -44,7 +45,7 @@ namespace Bin{
         
     public:
 
-
+        vector<int> optimal_pattern;
         int num_pattern = 0;
         double lp_bound = 0.0;
         double min_reduced_cost;
@@ -58,7 +59,7 @@ namespace Bin{
         void initializing_pattern();
         void solve_restricted_master_problem();
 
-        bool solve_knapsack_gurobi(double cutoff, double& min_reduced_cost);
+        bool solve_knapsack_dp(double cutoff, double& min_reduced_cost);
 
         void collect_training_data(vector<vector<double>>& obj_coef, vector<vector<bool>>& solution);
 

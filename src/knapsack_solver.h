@@ -22,26 +22,26 @@ namespace Bin{
 
 
 
-
-        vector<double> objs;
+        // vector<double> objs;
         vector<double> times;
         vector<vector<int>> sols;
         vector<double> reduced_costs;
 
         int capacity;
         int nitems;
-        vector<double> weight;
+        vector<int> weight;
 
         vector<int> optimal_pattern;
         bool isOptimal=false;
         double best_obj;
-        explicit knapsack_solver(int _method, double _cutoff, const vector<double>& _dual_values, 
-            int capacity, vector<int> weight, int nitems, long long _upper_col_limit);
+        explicit knapsack_solver(double _cutoff, const vector<double>& _dual_values, 
+            int capacity, const vector<int>& _weight, int _nitems, long long _upper_col_limit);
 
         void solve_knapsack_greedy();
         void solve_knapsack_dp();
-        void postprocessing();
-
+        // void run();
+        // void postprocessing();
+        ~knapsack_solver(){};
 
 
 
@@ -51,12 +51,6 @@ namespace Bin{
 
 
 }
-
-
-
-
-
-
 
 
 

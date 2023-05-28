@@ -83,9 +83,22 @@ CMakeFiles/Binpack.dir/src/instance.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Binpack.dir/src/instance.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kevshiba/reproduce/binpack/src/instance.cpp -o CMakeFiles/Binpack.dir/src/instance.cpp.s
 
+CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.o: CMakeFiles/Binpack.dir/flags.make
+CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.o: ../src/knapscak_solver.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.o -c /home/kevshiba/reproduce/binpack/src/knapscak_solver.cpp
+
+CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kevshiba/reproduce/binpack/src/knapscak_solver.cpp > CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.i
+
+CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kevshiba/reproduce/binpack/src/knapscak_solver.cpp -o CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.s
+
 CMakeFiles/Binpack.dir/src/main.cpp.o: CMakeFiles/Binpack.dir/flags.make
 CMakeFiles/Binpack.dir/src/main.cpp.o: ../src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Binpack.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Binpack.dir/src/main.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Binpack.dir/src/main.cpp.o -c /home/kevshiba/reproduce/binpack/src/main.cpp
 
 CMakeFiles/Binpack.dir/src/main.cpp.i: cmake_force
@@ -96,23 +109,40 @@ CMakeFiles/Binpack.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Binpack.dir/src/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kevshiba/reproduce/binpack/src/main.cpp -o CMakeFiles/Binpack.dir/src/main.cpp.s
 
+CMakeFiles/Binpack.dir/src/pricer.cpp.o: CMakeFiles/Binpack.dir/flags.make
+CMakeFiles/Binpack.dir/src/pricer.cpp.o: ../src/pricer.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Binpack.dir/src/pricer.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Binpack.dir/src/pricer.cpp.o -c /home/kevshiba/reproduce/binpack/src/pricer.cpp
+
+CMakeFiles/Binpack.dir/src/pricer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Binpack.dir/src/pricer.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kevshiba/reproduce/binpack/src/pricer.cpp > CMakeFiles/Binpack.dir/src/pricer.cpp.i
+
+CMakeFiles/Binpack.dir/src/pricer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Binpack.dir/src/pricer.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kevshiba/reproduce/binpack/src/pricer.cpp -o CMakeFiles/Binpack.dir/src/pricer.cpp.s
+
 # Object files for target Binpack
 Binpack_OBJECTS = \
 "CMakeFiles/Binpack.dir/src/cg.cpp.o" \
 "CMakeFiles/Binpack.dir/src/instance.cpp.o" \
-"CMakeFiles/Binpack.dir/src/main.cpp.o"
+"CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.o" \
+"CMakeFiles/Binpack.dir/src/main.cpp.o" \
+"CMakeFiles/Binpack.dir/src/pricer.cpp.o"
 
 # External object files for target Binpack
 Binpack_EXTERNAL_OBJECTS =
 
 Binpack: CMakeFiles/Binpack.dir/src/cg.cpp.o
 Binpack: CMakeFiles/Binpack.dir/src/instance.cpp.o
+Binpack: CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.o
 Binpack: CMakeFiles/Binpack.dir/src/main.cpp.o
+Binpack: CMakeFiles/Binpack.dir/src/pricer.cpp.o
 Binpack: CMakeFiles/Binpack.dir/build.make
 Binpack: /opt/gurobi1001/linux64/lib/libgurobi_c++.a
 Binpack: /opt/gurobi1001/linux64/lib/libgurobi100.so
 Binpack: CMakeFiles/Binpack.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable Binpack"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable Binpack"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Binpack.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "gurobi_c++.h"
+#include "knapsack_solver.h"
+#include <algorithm>
 
 
 namespace Bin{
@@ -20,7 +22,7 @@ namespace Bin{
 
 
         num_pattern = pattern_factor * bin.nitems;
-        cout << "number of pattern generated is " << num_pattern << endl;
+        cout << "Pattern is generating...  "  << endl;
         capacity = bin.capacity;
         weight = bin.weight;
         pattern_set.resize(num_pattern);
@@ -29,7 +31,7 @@ namespace Bin{
 
     }
 
-
+    // initialize one pattern
     void CG::initializing_pattern(){
         mt19937 mt(1e5);
         uniform_int_distribution<int> dist(0,RAND_MAX);
@@ -41,58 +43,141 @@ namespace Bin{
         vector<int> candidate_pattern(bin.nitems);
         int num_candidates;
 
-        // loop each initialized pattern
-        for (int i = 0; i < bin.nitems; ++i){
+        for (int i = 0; i < num_pattern; ++i){
+            candidate_pattern.resize(bin.nitems);
             num_candidates = bin.nitems;
+
             int aggregated_weight = 0;
-            vector<int> possible_bin_id;
+            // cout << "pattern id " << i <<endl;
             for (int j = 0; j < num_candidates; ++j){
-                    candidate_pattern[j] = j;
-                }
+                candidate_pattern[j] = j;
+            }
+            // cout << candidate_pattern.size()<<endl;
             while (num_candidates > 0){
-                
                 if (num_candidates == bin.nitems){
-                    idx = i % bin.nitems;
+                    idx = i;
                     item_i = candidate_pattern[idx];
+                    cout << "First picked item is " << idx << endl;
                 }
                 else {
-                    idx = dist(mt) % num_candidates;
-                    item_i = possible_bin_id[idx];
+                    idx = dist(mt) % candidate_pattern.size();
+                    item_i = candidate_pattern[idx];
                 }
-                possible_bin_id.clear();
-                aggregated_weight += bin.weight[item_i];
                 pattern_set[i].push_back(item_i);
-                num = 0;
-
+                aggregated_weight += bin.weight[item_i];
                 // cout << "Added item " << item_i << " Weight is " << bin.weight[item_i] << endl;
+
+                candidate_pattern.erase(candidate_pattern.begin() + idx);
+                // cout << idx << " is removed" << " the candidate size is " << candidate_pattern.size() << endl;
                 int remaining_capacity = bin.capacity - aggregated_weight;
-                // cout << "Remaining capacity is "<< remaining_capacity << endl;
+                // cout << "Aggregated item weight is " << aggregated_weight<< endl;
+                // cout << "Remaining capacity is " << remaining_capacity << endl;
+                
+                // cout << "current candidate pattern size " <<candidate_pattern.size() << endl;
+                // for (int n=0;n<candidate_pattern.size();++n){
+                //     cout << candidate_pattern[n] << ": " << bin.weight[candidate_pattern[n]] <<endl;
 
-                for (int j = 0; j < num_candidates; ++j){
-
-                    if (bin.weight[j] < remaining_capacity && j != idx){
-                        // cout << "Possible bin ID " << j << " weight is " << bin.weight[j] << endl;
-                        possible_bin_id.push_back(j);
-                        num++;
-                    } 
+                // }
+                vector<int> invalid_item;
+                for (int j = 0; j < candidate_pattern.size(); ++j){
+                    // cout << "item " << candidate_pattern[j] << ":" << bin.weight[candidate_pattern[j]] << "remaining capcity" << remaining_capacity << endl;
+                    if (bin.weight[candidate_pattern[j]] > remaining_capacity ){
+                        // cout << "removing invalid item " << candidate_pattern[j] << endl;
+                        invalid_item.push_back(candidate_pattern[j]);
+                    }
                 }
-                num_candidates = num;
+                // remove idx in invalid item from candidate pattern
+                for (int m = 0; m < invalid_item.size(); ++m){
+                    for (int n = 0; n < candidate_pattern.size(); ++n){
+                        if (invalid_item[m] == candidate_pattern[n]){
+                            candidate_pattern.erase(candidate_pattern.begin() + n);
+                        } 
+                    }
+                }
+
+                num_candidates = candidate_pattern.size();
+                // cout << "Current candidate:..."<<endl;
 
             }
-            // cout << "randomly initializing pattern: " << endl;
-            // int weights = 0;
-            // for (int n = 0; n < pattern_set[i].size(); ++n){
-            //     cout << pattern_set[i][n] << " " << "weight: " << bin.weight[pattern_set[i][n]] << " " << endl;
-            //     weights += bin.weight[pattern_set[i][n]];
-            // }
-        }    
+
+
+        }
+
+        // remove duplicated pattern after generalizing random pattern
+        // loop the pattern set, sort them first
+        for (int i = 0; i < pattern_set.size(); ++i){
+            std::stable_sort(pattern_set[i].begin(), pattern_set[i].end());
+        }
+        std::stable_sort(pattern_set.begin(), pattern_set.end());
+        // cout << pattern_set.size();
+        pattern_set.erase(std::unique(pattern_set.begin(), pattern_set.end()), pattern_set.end());
+        // cout << pattern_set.size();
+        // find duplicated pattern (same vector)
+        for (int i=0; i < pattern_set.size(); ++i ){
+            cout << "randomly initializing pattern: " << endl;
+            int weights = 0;
+            for (int n = 0; n < pattern_set[i].size(); ++n){
+                cout << pattern_set[i][n] << " " << "weight: " << bin.weight[pattern_set[i][n]] << " " << endl;
+                weights += bin.weight[pattern_set[i][n]];
+            }
+            cout << "Total weight is " << weights << endl;
+        } 
+        cout << "Number of randomly generated pattern is " << pattern_set.size() << endl;
+
     }
+        // loop each initialized pattern
+        // for (int i = 0; i < bin.nitems; ++i){
+        //     num_candidates = bin.nitems;
+        //     int aggregated_weight = 0;
+        //     // vector<int> possible_bin_id;
+        //     for (int j = 0; j < num_candidates; ++j){
+        //             candidate_pattern[j] = j;
+        //         }
+        //     while (num_candidates > 0){
+                
+        //         if (num_candidates == bin.nitems){
+        //             idx = i % bin.nitems;
+        //             // item_i = candidate_pattern[idx];
+        //         }
+        //         else {
+        //             idx = dist(mt) % candidate_pattern.size();
+        //             // item_i = candidate_pattern[idx];
+        //         }
+                
+        //         aggregated_weight += bin.weight[idx];
+        //         pattern_set[i].push_back(idx);
+        //         num = 0;
+        //         // candidate_pattern.clear();
+        //         // cout << "Added item " << item_i << " Weight is " << bin.weight[item_i] << endl;
+        //         int remaining_capacity = bin.capacity - aggregated_weight;
+        //         cout << "Remaining capacity is "<< remaining_capacity << endl;
+
+        //         // cout << "Lets see what items are available in next round" << endl;
+        //         for (int j = 0; j < num_candidates; ++j){
+        //             if (bin.weight[j] < remaining_capacity && j != idx){
+        //                 // cout << "Possible bin ID " << j << " weight is " << bin.weight[j] << endl;
+        //                 candidate_pattern[num] = candidate_pattern[j];
+        //                 num++;
+        //             } 
+        //         }
+        //         num_candidates = num;
+
+        //     }
+        //     cout << "randomly initializing pattern: " << endl;
+        //     int weights = 0;
+        //     for (int n = 0; n < pattern_set[i].size(); ++n){
+        //         cout << pattern_set[i][n] << " " << "weight: " << bin.weight[pattern_set[i][n]] << " " << endl;
+        //         weights += bin.weight[pattern_set[i][n]];
+        //     } 
+        // }    
+
 
  
     void CG::solve_restricted_master_problem(){
 
-        cout << "Computing restricted master problem" << endl;
+        
         num_pattern = pattern_set.size();
+
         vector<vector<bool>> pattern_set_binary(num_pattern, vector<bool>(bin.nitems, 0));
         long item_i;
         for (int i = 0; i < num_pattern; ++i){
@@ -101,6 +186,7 @@ namespace Bin{
                 pattern_set_binary[i][item_i] = 1;
             }
         }
+
 
         try{
             GRBEnv *env;
@@ -118,7 +204,7 @@ namespace Bin{
             }
             model.update();
 
-            // set covering problem
+            // set covering problem, each item is covered by at least one set
             vector<GRBConstr> orders;
             orders.resize(bin.nitems);
             for (long j = 0; j < bin.nitems; ++j){
@@ -129,6 +215,7 @@ namespace Bin{
                 orders[j] = model.addConstr(rtot >= 1, "");
             }
 
+            // objective
             GRBLinExpr objtot = 0;
             for (long i = 0; i < num_pattern; ++i){
                 objtot += x[i];
@@ -136,19 +223,31 @@ namespace Bin{
             
             model.setObjective(objtot, GRB_MINIMIZE);
             model.update();
+
+            model.set(GRB_IntParam_Presolve, 0);
             model.optimize();
             lp_bound = model.get(GRB_DoubleAttr_ObjVal);
             cout << "LP bound is " << lp_bound << endl;
             // save pi value
-            dual_values.resize(bin.nitems);
-
-         
+            cout << "Dual value: ";
             for (long j = 0; j < bin.nitems; ++j){
                 dual_values[j] = orders[j].get(GRB_DoubleAttr_Pi);
-                // cout << dual_values[j] << endl;
+                cout << dual_values[j] <<" ";
             }
+
+            int cols = model.get(GRB_IntAttr_NumVars);
+
+            long k = 0;
+            lp_vbasis.resize(num_pattern);
+            for (long i = 0; i < num_pattern; ++i){
+                lp_vbasis[i] = x[i].get(GRB_IntAttr_VBasis);
+                k+=(lp_vbasis[i]==0);
+            }
+            cout << endl;
+            cout << "lp solution # basic variables: " << k << "/" << lp_vbasis.size() << "\n";
+            
             delete env;
-        }      
+        }     
         catch (GRBException e) {
         cout << "Error code " << endl;
         cout <<  e.getErrorCode() << e.getMessage() << endl;
@@ -156,15 +255,15 @@ namespace Bin{
     }
 
 
-    bool CG::solve_knapsack_gurobi(double cutoff, double& min_reduced_cost){
+    bool CG::solve_knapsack_dp(double cutoff, double& min_reduced_cost){
         if (cutoff <= 0)
             return false;
-        knapsack_solver knapsack_solver(1, cutoff, dual_values, capacity, weight, 1e8);
-        knapsack_solver.run();
-        optimal_pattern=knapsack_solver.optimal_pattern;
-        min_reduced_cost = knapsack_solver.exact_rc;
+        cout << "dp working" << endl;
+        Bin::knapsack_solver dp(cutoff, dual_values, capacity, weight, bin.nitems, 1e8);
+        optimal_pattern=dp.optimal_pattern;
+        min_reduced_cost = dp.exact_rc;
 
-        return knapsack_solver.isOptimal;
+        return dp.isOptimal;
         
     }
 
@@ -172,20 +271,21 @@ namespace Bin{
 
     void CG::collect_training_data(vector<vector<double>>& obj_coef, vector<vector<bool>>& solution){
         initializing_pattern();
+        cout << "Pattern is initialized!" << endl;
+
         min_reduced_cost = -1.0;
-
+        cout << pattern_set.size() << endl;
         while (min_reduced_cost < -0.0000001){
-
 
             cout << "Solving restricted master problem" << endl;
             solve_restricted_master_problem();
             cout << "Solving pricing problem" << endl;
-            solve_knapsack_gurobi(1e8, min_reduced_cost);
+            solve_knapsack_dp(1e8, min_reduced_cost);
             if (cg_iters % 5 == 0){
-                
                 vector<bool> opt_sol(bin.nitems, false);
-                for (auto v : optimal_pattern){
-                    opt_sol[v]=true;
+
+                for (auto item : optimal_pattern){
+                    opt_sol[item]=true;
                 }
                 obj_coef.push_back(dual_values);
                 solution.push_back(opt_sol);
@@ -194,15 +294,15 @@ namespace Bin{
 
             // add new columns
             pattern_set.push_back(optimal_pattern);
+            // cout << pattern_set.size() << endl;
             cout << "minimum reduced cost is " << min_reduced_cost << endl;
 
-            if (cg_iters ++>=25) break;
+            if (cg_iters ++>=5) break;
 
         }
     
 
     }
-
 
 
 

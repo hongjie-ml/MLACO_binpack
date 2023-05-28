@@ -1,19 +1,24 @@
-#include <knapsack_solver.h>
+#include "knapsack_solver.h"
 
 
 
 namespace Bin{
 
 
-    knapsack_solver::knapsack_solver(int _method, double _cutoff, 
-            const vector<double>& _dual_values, int _capacity, vector<double> _weight, int nitems, long long _upper_col_limit) 
+    knapsack_solver::knapsack_solver(double _cutoff, const vector<double>& _dual_values, 
+                int _capacity, const vector<int>& _weight, int _nitems, long long _upper_col_limit) 
     {   
         dual_values = _dual_values;
-        method = _method;
-        cutoff = cutoff;
-        capacity=_capacity;
-        weight=_weight;
-        nitems=nitems;
+        cutoff = _cutoff;
+        capacity = _capacity;
+        weight = _weight;
+        nitems = _nitems;
+
+        solve_knapsack_dp();
+        for (int i = 0; i < nitems; i++){
+            cout << optimal_pattern[i] << "   " << weight[i] << endl;
+
+        }
     }
 
     int max(int a, int b)
@@ -25,30 +30,43 @@ namespace Bin{
     // solve knapsack problem using dp
     void knapsack_solver::solve_knapsack_dp(){
         // dual value is regarded as (value of item)
-        int i,w_idx,n;
-        vector<double> value = dual_values;
-        int K[nitems+1][capacity+1];
-        for (i = 0; i <= n; i++){
         
-            for (w_idx = 0; w_idx <= weight.size(); w_idx++){
-                int w = weight[w_idx];
-                if (i == 0 || w == 0)
-                    K[i][w_idx] = 0;
-                else if (weight[i - 1] <= w)
-                    K[i][w_idx]
-                            = max(dual_values[i - 1] + K[i - 1][w - w[i - 1]], K[i - 1][w]);
-                else
-                    K[i][w_idx] = K[i - 1][w_idx];
+        vector<vector<int>> table(nitems+1, vector<int>(capacity+1, 0));
+        for (int i = 1; i < nitems+1; i++){
+            for (int w = 1; w < capacity+1; w++){
+                if (w < weight[i - 1]){
+                    table[i][w] = table[i - 1] [w];
+                }
+                else{
+                    table[i][w] = max(table[i-1][w-weight[i-1]] + dual_values[i-1], table[i-1][w]);
+                }
+            }
         }
-    }
+        best_obj = table[nitems][capacity];
+        int res = table[nitems][capacity];
+        int w = capacity;
+        optimal_pattern = vector<int>(nitems, 0);
+        for (int i = nitems; i >> 0 && res > 0; i--){
+            if (res == table[i-1][w]){
+                continue;
+            }
+            else{
+                optimal_pattern[i-1] = 1;
+            }
+            res = res - dual_values[i - 1];
+            w = w - weight[i - 1];
+        }
 
+
+        exact_rc = 1 - best_obj;
+        }
+
+        
 
 
         
 
 
-
-    }
 
     void knapsack_solver::solve_knapsack_greedy(){
         // solve knapsack prolem using greedy
@@ -59,6 +77,10 @@ namespace Bin{
     }
 
 
+
+    void run(){
+        
+    }
 
     
 
