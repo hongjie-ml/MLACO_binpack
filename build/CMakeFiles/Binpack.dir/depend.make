@@ -9,8 +9,11 @@ CMakeFiles/Binpack.dir/src/cg.cpp.o: ../src/pricer.h
 CMakeFiles/Binpack.dir/src/cg.cpp.o: /opt/gurobi1001/linux64/include/gurobi_c++.h
 CMakeFiles/Binpack.dir/src/cg.cpp.o: /opt/gurobi1001/linux64/include/gurobi_c.h
 
+CMakeFiles/Binpack.dir/src/instance.cpp.o: ../src/cg.h
 CMakeFiles/Binpack.dir/src/instance.cpp.o: ../src/instance.cpp
 CMakeFiles/Binpack.dir/src/instance.cpp.o: ../src/instance.h
+CMakeFiles/Binpack.dir/src/instance.cpp.o: ../src/knapsack_solver.h
+CMakeFiles/Binpack.dir/src/instance.cpp.o: ../src/pricer.h
 
 CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.o: ../src/knapsack_solver.h
 CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.o: ../src/knapscak_solver.cpp
