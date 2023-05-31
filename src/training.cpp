@@ -27,8 +27,44 @@ namespace Bin{
             return;
         }
         train_file.close();
-        
-        
+
+        std::uint64_t num0 = 0;
+        std::uint64_t num1 = 0;
+
+        for (auto d = 0u; d < training_files.size(); ++d){
+            auto bin = Instance(training_files[d], input_dir, true);
+            auto n = bin.nitems;
+
+
+            std::cout << "number of pricing problems: " << bin.num_pricing;
+            for (auto inst_idx=0; inst_idx< bin.num_pricing; ++inst_idx){
+                std::vector<double>& cur_pattern_obj_coef = bin.knapsack_obj_coefs[inst_idx];
+                std::vector<bool>& cur_pattern_sol = bin.knapsack_sol[inst_idx];
+
+                MLBIN mlbin(0);
+                mlbin.random_sampling();
+                mlbin.compute_features1();
+                mlbin.compute_features2();
+                train_file.open(train_data, std::ios::app);
+                for (auto i = 0; i < n; ++i){
+                    if (cur_pattern_sol[i]){
+                        num1++;
+                    }
+                    else
+                        num0++;
+                    float val = cur_pattern_sol[i];
+                    
+                    train_file << val << " ";
+                    train_file << "1:" << std::fixed << std::setprecision(6) << mlb
+                }
+
+
+                 
+            }
+
+
+        }
+
 
     }
 

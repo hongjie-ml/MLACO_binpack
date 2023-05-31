@@ -180,6 +180,10 @@ namespace Bin{
 
         vector<vector<bool>> pattern_set_binary(num_pattern, vector<bool>(bin.nitems, 0));
         long item_i;
+
+        cout << "Solving RMP ";
+        cout << "  The number of column is " << pattern_set.size() << endl;
+
         for (int i = 0; i < num_pattern; ++i){
             for (int j = 0; j < pattern_set[i].size(); ++j){
                 item_i = pattern_set[i][j];
@@ -274,9 +278,10 @@ namespace Bin{
         cout << "Pattern is initialized!" << endl;
 
         min_reduced_cost = -1.0;
-        cout << pattern_set.size() << endl;
-        while (min_reduced_cost < -0.0000001){
-
+        
+        while (min_reduced_cost < 0){
+            cout << "Num of iter " << cg_iters << endl; 
+            cout << pattern_set.size() << endl;
             cout << "Solving restricted master problem" << endl;
             solve_restricted_master_problem();
             cout << "Solving pricing problem" << endl;
@@ -290,17 +295,13 @@ namespace Bin{
                 obj_coef.push_back(dual_values);
                 solution.push_back(opt_sol);
             }
-
-
             // add new columns
             pattern_set.push_back(optimal_pattern);
             // cout << pattern_set.size() << endl;
             cout << "minimum reduced cost is " << min_reduced_cost << endl;
-
-            if (cg_iters ++>=5) break;
-
+ 
+            if (cg_iters ++>=25) break;
         }
-    
 
     }
 
@@ -345,10 +346,6 @@ namespace Bin{
     //             dual_values.push_back(dual_values);
     //             soluion.push_back(opt_sol);
     //         }
-
-
-
-
 
     //     }
 

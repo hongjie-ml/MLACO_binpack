@@ -15,10 +15,11 @@ namespace Bin{
         nitems = _nitems;
 
         solve_knapsack_dp();
-        for (int i = 0; i < nitems; i++){
-            cout << optimal_pattern[i] << "   " << weight[i] << endl;
-
-        }
+        // cout << endl;
+        // for (int i = 0; i < optimal_pattern.size(); i++){
+        //     cout << optimal_pattern[i];
+        // }
+        // cout << endl;
     }
 
     int max(int a, int b)
@@ -45,19 +46,26 @@ namespace Bin{
         best_obj = table[nitems][capacity];
         int res = table[nitems][capacity];
         int w = capacity;
-        optimal_pattern = vector<int>(nitems, 0);
+        vector<int> optimal_pattern_binary;
+        optimal_pattern_binary = vector<int>(nitems, 0);
         for (int i = nitems; i >> 0 && res > 0; i--){
             if (res == table[i-1][w]){
                 continue;
             }
             else{
-                optimal_pattern[i-1] = 1;
+                optimal_pattern_binary[i-1] = 1;
             }
             res = res - dual_values[i - 1];
             w = w - weight[i - 1];
         }
+        
+        for (int i = 0; i < optimal_pattern_binary.size(); ++i){
+            if (optimal_pattern_binary[i] != 0){
+                optimal_pattern.push_back(i);
+            }
+        }
 
-
+        // cout << "Best objective in dp is "<<best_obj;
         exact_rc = 1 - best_obj;
         }
 

@@ -46,6 +46,7 @@
         "cinttypes": "cpp",
         "typeinfo": "cpp",
         "ctime": "cpp",
-        "cstring": "cpp"
+        "cstring": "cpp",
+        "iomanip": "cpp"
     }
 }

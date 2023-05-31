@@ -19,19 +19,23 @@ namespace Bin{
         int bestsolvalue;
         const string file_name;
         const string input_dir;
-
+        
         void read_bpa();
 
 
-        public:
-            vector<int> weight;
-            int nitems;
-            int capacity;
+    public:
+        int num_pricing = 0;
+        vector<int> weight;
+        vector<vector<double>> knapsack_obj_coefs;
+        vector<vector<bool>> knapsack_sol;
+        int nitems;
+        int capacity;
 
-            explicit Instance(string file_name, string input_dir, bool _solve);
+        explicit Instance(string file_name, string input_dir, bool _solve);
+        void load_train_data(std::string read_from);
+        void collect_train_data(std::string save_to);
 
-            
-
+        
 
     };
 

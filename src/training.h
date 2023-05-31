@@ -2,7 +2,7 @@
 #define TRAINING_H
 #include "instance.h"
 #include <cstring>
-
+#include <iomanip>
 
 
 namespace Bin {
