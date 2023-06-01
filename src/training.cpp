@@ -11,7 +11,7 @@ namespace Bin{
                     training_files{training_files}, input_dir{input_dir},alpha{alpha}, kernel_type{kernel_type}
     {
         std::cout << "Number of training file is " << training_files.size() << endl;
-
+        construct_training_set();
     }
 
 
@@ -43,8 +43,8 @@ namespace Bin{
 
                 MLBIN mlbin(0);
                 mlbin.random_sampling();
-                mlbin.compute_features1();
-                mlbin.compute_features2();
+                mlbin.compute_correlation_based_measure();
+                mlbin.compute_bound();
                 train_file.open(train_data, std::ios::app);
                 for (auto i = 0; i < n; ++i){
                     if (cur_pattern_sol[i]){
@@ -55,17 +55,36 @@ namespace Bin{
                     float val = cur_pattern_sol[i];
                     
                     train_file << val << " ";
-                    train_file << "1:" << std::fixed << std::setprecision(6) << mlb
+                    train_file << "1:" << std::fixed << std::setprecision(6) << mlbin.dual_values[i]/mlph.max_dual << " ";
+                    train_file << "2:" << std::fixed << std::setprecision(6) << bin.weight[i]/bin.capacity << " ";
+                    train_file << "3:" << std::fixed << std::setprecision(6) << mlbin.bound_norm[i] << " ";
+                    train_file << "5:" << std::fixed << std::setprecision(6) << mlbin.corr_norm << " ";
+                    train_file << "5:" << std::fixed << std::setprecision(6) << ;
+                    train_file << "4:" << std::fixed << std::setprecision(6) << mlbin.weight_rank << " ";
                 }
+                train_file.close();
 
 
                  
             }
-
-
         }
+        std::cout << "num0 is " << num0 << "; " << "num1 is " << num1 << std::endl; 
+        weight = alpha * num0/num1;
+
+    }
 
 
+    void Training::generate_training_model_svm(){
+        std::string train_s = train_data_dir  + train_file_name;
+        std::string model_s = train_data_dir + svm_train_model_name;
+        char train_data[train_s.size()+1];
+        char model_file[model_s.size()+1];
+        strcpy(train_data, train_s.c_str());
+        strcpy(model_file, model_s.c_str());
+        std::cout << "weight of class 1 is " << weight << std::endl;
+        std::cout << "kernel type is " << kernel_type << std::endl;
+        std::cout << "output probability is " << prob << std::endl;
+        svm_train_model(train_data, model_file, weight, kernel_type, prob);
     }
 
 

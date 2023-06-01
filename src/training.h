@@ -5,6 +5,11 @@
 #include <iomanip>
 
 
+extern "C" {
+#include "linear_svm/linear_svm_predict_model.h"
+#include "linear_svm_train_model.h"
+}
+
 namespace Bin {
     class Training{
 
