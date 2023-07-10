@@ -74,12 +74,12 @@ clean: CMakeFiles/Binpack.dir/clean
 CMakeFiles/Binpack.dir/all:
 	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/depend
 	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target Binpack"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19 "Built target Binpack"
 .PHONY : CMakeFiles/Binpack.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Binpack.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/kevshiba/reproduce/binpack/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/kevshiba/reproduce/binpack/build/CMakeFiles 19
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Binpack.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/kevshiba/reproduce/binpack/build/CMakeFiles 0
 .PHONY : CMakeFiles/Binpack.dir/rule

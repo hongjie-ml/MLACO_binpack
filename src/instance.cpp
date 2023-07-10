@@ -64,7 +64,7 @@ namespace Bin{
 
 
     void Instance::collect_train_data(string save_to){
-        Bin::CG cg(*this);
+        Bin::CG cg(*this, 1, 1000);
 
         vector<vector<double>> obj_coef;
         vector<vector<bool>> solution;
@@ -108,7 +108,8 @@ namespace Bin{
             if (ctr % 2 == 0){
                 while (stream >> dual){
                     obj_coef.push_back(dual);
-                knapsack_obj_coefs.push_back(obj_coef);}
+                }
+                knapsack_obj_coefs.push_back(obj_coef);
             }
             else {
                 while (stream >> sol_val)
@@ -120,6 +121,78 @@ namespace Bin{
         num_pricing = ctr/2;
         opt_file.close();
         }
+
+
+    void Instance::generate_random_pattern(){
+        int sample_size = 20;
+        vector<vector<int>> pattern_set = vector<vector<int>> (sample_size);
+
+        mt19937 mt(1314);
+        uniform_int_distribution<int> dist(0,RAND_MAX);
+
+        vector<int> candidates(nitems);
+        int aggregated_weight;
+        int nb_candidates, idx, item, num;
+
+        for (int i = 0; i < sample_size; ++i){
+            nb_candidates = nitems;
+            aggregated_weight = 0;
+            cout << "Sample " << i <<":";
+            for (int j = 0; j < nb_candidates; ++j){
+                candidates[j] = j;
+            }
+
+            while (nb_candidates > 0){
+                if (nb_candidates == nitems){
+                    idx = i % nitems;
+                } else{
+                    idx = dist(mt) % nb_candidates;
+                }
+                item = candidates[idx]; // item number_id
+                cout << item << " ";
+                pattern_set[i].push_back(item);
+                aggregated_weight += weight[item];
+                int remaining_capacity = capacity - aggregated_weight;
+
+                // cout candidate
+                // cout << "Candidate item list:" << endl;
+                // for (int j = 0; j < nb_candidates; ++ j){
+                //     cout << candidates[j] << " ";
+                // }
+                // cout << endl;
+                
+                num = 0;
+                for (int j = 0; j < nb_candidates; ++ j){
+                    if (remaining_capacity > weight[candidates[j]] && j != idx){
+                        candidates[num] = candidates[j];
+                        num++;
+                    }
+                }
+
+                nb_candidates = num;
+            }
+            cout << endl;
+
+            cout << "Total weight for current pattern: " << aggregated_weight << endl;
+
+        cout << endl;}
+
+        for (int i=0; i < pattern_set.size(); ++i){
+            int total_weight = 0;
+            for (int j =0; j < pattern_set[i].size(); ++j){
+                total_weight+= weight[pattern_set[i][j] ];
+                cout << pattern_set[i][j] << " ";
+                 
+            }
+            cout << total_weight ;
+            cout << endl;
+        }
+
+
+        }
+
+
+
 
 }
 

@@ -57,9 +57,22 @@ include CMakeFiles/Binpack.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/Binpack.dir/flags.make
 
+CMakeFiles/Binpack.dir/src/MLBIN.cpp.o: CMakeFiles/Binpack.dir/flags.make
+CMakeFiles/Binpack.dir/src/MLBIN.cpp.o: ../src/MLBIN.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Binpack.dir/src/MLBIN.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Binpack.dir/src/MLBIN.cpp.o -c /home/kevshiba/reproduce/binpack/src/MLBIN.cpp
+
+CMakeFiles/Binpack.dir/src/MLBIN.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Binpack.dir/src/MLBIN.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kevshiba/reproduce/binpack/src/MLBIN.cpp > CMakeFiles/Binpack.dir/src/MLBIN.cpp.i
+
+CMakeFiles/Binpack.dir/src/MLBIN.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Binpack.dir/src/MLBIN.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kevshiba/reproduce/binpack/src/MLBIN.cpp -o CMakeFiles/Binpack.dir/src/MLBIN.cpp.s
+
 CMakeFiles/Binpack.dir/src/cg.cpp.o: CMakeFiles/Binpack.dir/flags.make
 CMakeFiles/Binpack.dir/src/cg.cpp.o: ../src/cg.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Binpack.dir/src/cg.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Binpack.dir/src/cg.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Binpack.dir/src/cg.cpp.o -c /home/kevshiba/reproduce/binpack/src/cg.cpp
 
 CMakeFiles/Binpack.dir/src/cg.cpp.i: cmake_force
@@ -72,7 +85,7 @@ CMakeFiles/Binpack.dir/src/cg.cpp.s: cmake_force
 
 CMakeFiles/Binpack.dir/src/instance.cpp.o: CMakeFiles/Binpack.dir/flags.make
 CMakeFiles/Binpack.dir/src/instance.cpp.o: ../src/instance.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Binpack.dir/src/instance.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Binpack.dir/src/instance.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Binpack.dir/src/instance.cpp.o -c /home/kevshiba/reproduce/binpack/src/instance.cpp
 
 CMakeFiles/Binpack.dir/src/instance.cpp.i: cmake_force
@@ -83,22 +96,126 @@ CMakeFiles/Binpack.dir/src/instance.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Binpack.dir/src/instance.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kevshiba/reproduce/binpack/src/instance.cpp -o CMakeFiles/Binpack.dir/src/instance.cpp.s
 
-CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.o: CMakeFiles/Binpack.dir/flags.make
-CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.o: ../src/knapscak_solver.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.o -c /home/kevshiba/reproduce/binpack/src/knapscak_solver.cpp
+CMakeFiles/Binpack.dir/src/knapsack_solver.cpp.o: CMakeFiles/Binpack.dir/flags.make
+CMakeFiles/Binpack.dir/src/knapsack_solver.cpp.o: ../src/knapsack_solver.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Binpack.dir/src/knapsack_solver.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Binpack.dir/src/knapsack_solver.cpp.o -c /home/kevshiba/reproduce/binpack/src/knapsack_solver.cpp
 
-CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kevshiba/reproduce/binpack/src/knapscak_solver.cpp > CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.i
+CMakeFiles/Binpack.dir/src/knapsack_solver.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Binpack.dir/src/knapsack_solver.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kevshiba/reproduce/binpack/src/knapsack_solver.cpp > CMakeFiles/Binpack.dir/src/knapsack_solver.cpp.i
 
-CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kevshiba/reproduce/binpack/src/knapscak_solver.cpp -o CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.s
+CMakeFiles/Binpack.dir/src/knapsack_solver.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Binpack.dir/src/knapsack_solver.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kevshiba/reproduce/binpack/src/knapsack_solver.cpp -o CMakeFiles/Binpack.dir/src/knapsack_solver.cpp.s
+
+CMakeFiles/Binpack.dir/src/linear_svm/blas/daxpy.c.o: CMakeFiles/Binpack.dir/flags.make
+CMakeFiles/Binpack.dir/src/linear_svm/blas/daxpy.c.o: ../src/linear_svm/blas/daxpy.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/Binpack.dir/src/linear_svm/blas/daxpy.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/Binpack.dir/src/linear_svm/blas/daxpy.c.o   -c /home/kevshiba/reproduce/binpack/src/linear_svm/blas/daxpy.c
+
+CMakeFiles/Binpack.dir/src/linear_svm/blas/daxpy.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Binpack.dir/src/linear_svm/blas/daxpy.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/kevshiba/reproduce/binpack/src/linear_svm/blas/daxpy.c > CMakeFiles/Binpack.dir/src/linear_svm/blas/daxpy.c.i
+
+CMakeFiles/Binpack.dir/src/linear_svm/blas/daxpy.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Binpack.dir/src/linear_svm/blas/daxpy.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/kevshiba/reproduce/binpack/src/linear_svm/blas/daxpy.c -o CMakeFiles/Binpack.dir/src/linear_svm/blas/daxpy.c.s
+
+CMakeFiles/Binpack.dir/src/linear_svm/blas/ddot.c.o: CMakeFiles/Binpack.dir/flags.make
+CMakeFiles/Binpack.dir/src/linear_svm/blas/ddot.c.o: ../src/linear_svm/blas/ddot.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/Binpack.dir/src/linear_svm/blas/ddot.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/Binpack.dir/src/linear_svm/blas/ddot.c.o   -c /home/kevshiba/reproduce/binpack/src/linear_svm/blas/ddot.c
+
+CMakeFiles/Binpack.dir/src/linear_svm/blas/ddot.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Binpack.dir/src/linear_svm/blas/ddot.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/kevshiba/reproduce/binpack/src/linear_svm/blas/ddot.c > CMakeFiles/Binpack.dir/src/linear_svm/blas/ddot.c.i
+
+CMakeFiles/Binpack.dir/src/linear_svm/blas/ddot.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Binpack.dir/src/linear_svm/blas/ddot.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/kevshiba/reproduce/binpack/src/linear_svm/blas/ddot.c -o CMakeFiles/Binpack.dir/src/linear_svm/blas/ddot.c.s
+
+CMakeFiles/Binpack.dir/src/linear_svm/blas/dnrm2.c.o: CMakeFiles/Binpack.dir/flags.make
+CMakeFiles/Binpack.dir/src/linear_svm/blas/dnrm2.c.o: ../src/linear_svm/blas/dnrm2.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/Binpack.dir/src/linear_svm/blas/dnrm2.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/Binpack.dir/src/linear_svm/blas/dnrm2.c.o   -c /home/kevshiba/reproduce/binpack/src/linear_svm/blas/dnrm2.c
+
+CMakeFiles/Binpack.dir/src/linear_svm/blas/dnrm2.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Binpack.dir/src/linear_svm/blas/dnrm2.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/kevshiba/reproduce/binpack/src/linear_svm/blas/dnrm2.c > CMakeFiles/Binpack.dir/src/linear_svm/blas/dnrm2.c.i
+
+CMakeFiles/Binpack.dir/src/linear_svm/blas/dnrm2.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Binpack.dir/src/linear_svm/blas/dnrm2.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/kevshiba/reproduce/binpack/src/linear_svm/blas/dnrm2.c -o CMakeFiles/Binpack.dir/src/linear_svm/blas/dnrm2.c.s
+
+CMakeFiles/Binpack.dir/src/linear_svm/blas/dscal.c.o: CMakeFiles/Binpack.dir/flags.make
+CMakeFiles/Binpack.dir/src/linear_svm/blas/dscal.c.o: ../src/linear_svm/blas/dscal.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/Binpack.dir/src/linear_svm/blas/dscal.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/Binpack.dir/src/linear_svm/blas/dscal.c.o   -c /home/kevshiba/reproduce/binpack/src/linear_svm/blas/dscal.c
+
+CMakeFiles/Binpack.dir/src/linear_svm/blas/dscal.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Binpack.dir/src/linear_svm/blas/dscal.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/kevshiba/reproduce/binpack/src/linear_svm/blas/dscal.c > CMakeFiles/Binpack.dir/src/linear_svm/blas/dscal.c.i
+
+CMakeFiles/Binpack.dir/src/linear_svm/blas/dscal.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Binpack.dir/src/linear_svm/blas/dscal.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/kevshiba/reproduce/binpack/src/linear_svm/blas/dscal.c -o CMakeFiles/Binpack.dir/src/linear_svm/blas/dscal.c.s
+
+CMakeFiles/Binpack.dir/src/linear_svm/linear.cpp.o: CMakeFiles/Binpack.dir/flags.make
+CMakeFiles/Binpack.dir/src/linear_svm/linear.cpp.o: ../src/linear_svm/linear.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/Binpack.dir/src/linear_svm/linear.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Binpack.dir/src/linear_svm/linear.cpp.o -c /home/kevshiba/reproduce/binpack/src/linear_svm/linear.cpp
+
+CMakeFiles/Binpack.dir/src/linear_svm/linear.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Binpack.dir/src/linear_svm/linear.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kevshiba/reproduce/binpack/src/linear_svm/linear.cpp > CMakeFiles/Binpack.dir/src/linear_svm/linear.cpp.i
+
+CMakeFiles/Binpack.dir/src/linear_svm/linear.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Binpack.dir/src/linear_svm/linear.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kevshiba/reproduce/binpack/src/linear_svm/linear.cpp -o CMakeFiles/Binpack.dir/src/linear_svm/linear.cpp.s
+
+CMakeFiles/Binpack.dir/src/linear_svm/linear_svm_predict_model.c.o: CMakeFiles/Binpack.dir/flags.make
+CMakeFiles/Binpack.dir/src/linear_svm/linear_svm_predict_model.c.o: ../src/linear_svm/linear_svm_predict_model.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/Binpack.dir/src/linear_svm/linear_svm_predict_model.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/Binpack.dir/src/linear_svm/linear_svm_predict_model.c.o   -c /home/kevshiba/reproduce/binpack/src/linear_svm/linear_svm_predict_model.c
+
+CMakeFiles/Binpack.dir/src/linear_svm/linear_svm_predict_model.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Binpack.dir/src/linear_svm/linear_svm_predict_model.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/kevshiba/reproduce/binpack/src/linear_svm/linear_svm_predict_model.c > CMakeFiles/Binpack.dir/src/linear_svm/linear_svm_predict_model.c.i
+
+CMakeFiles/Binpack.dir/src/linear_svm/linear_svm_predict_model.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Binpack.dir/src/linear_svm/linear_svm_predict_model.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/kevshiba/reproduce/binpack/src/linear_svm/linear_svm_predict_model.c -o CMakeFiles/Binpack.dir/src/linear_svm/linear_svm_predict_model.c.s
+
+CMakeFiles/Binpack.dir/src/linear_svm/linear_svm_train_model.c.o: CMakeFiles/Binpack.dir/flags.make
+CMakeFiles/Binpack.dir/src/linear_svm/linear_svm_train_model.c.o: ../src/linear_svm/linear_svm_train_model.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/Binpack.dir/src/linear_svm/linear_svm_train_model.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/Binpack.dir/src/linear_svm/linear_svm_train_model.c.o   -c /home/kevshiba/reproduce/binpack/src/linear_svm/linear_svm_train_model.c
+
+CMakeFiles/Binpack.dir/src/linear_svm/linear_svm_train_model.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Binpack.dir/src/linear_svm/linear_svm_train_model.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/kevshiba/reproduce/binpack/src/linear_svm/linear_svm_train_model.c > CMakeFiles/Binpack.dir/src/linear_svm/linear_svm_train_model.c.i
+
+CMakeFiles/Binpack.dir/src/linear_svm/linear_svm_train_model.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Binpack.dir/src/linear_svm/linear_svm_train_model.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/kevshiba/reproduce/binpack/src/linear_svm/linear_svm_train_model.c -o CMakeFiles/Binpack.dir/src/linear_svm/linear_svm_train_model.c.s
+
+CMakeFiles/Binpack.dir/src/linear_svm/tron.cpp.o: CMakeFiles/Binpack.dir/flags.make
+CMakeFiles/Binpack.dir/src/linear_svm/tron.cpp.o: ../src/linear_svm/tron.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/Binpack.dir/src/linear_svm/tron.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Binpack.dir/src/linear_svm/tron.cpp.o -c /home/kevshiba/reproduce/binpack/src/linear_svm/tron.cpp
+
+CMakeFiles/Binpack.dir/src/linear_svm/tron.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Binpack.dir/src/linear_svm/tron.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kevshiba/reproduce/binpack/src/linear_svm/tron.cpp > CMakeFiles/Binpack.dir/src/linear_svm/tron.cpp.i
+
+CMakeFiles/Binpack.dir/src/linear_svm/tron.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Binpack.dir/src/linear_svm/tron.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kevshiba/reproduce/binpack/src/linear_svm/tron.cpp -o CMakeFiles/Binpack.dir/src/linear_svm/tron.cpp.s
 
 CMakeFiles/Binpack.dir/src/main.cpp.o: CMakeFiles/Binpack.dir/flags.make
 CMakeFiles/Binpack.dir/src/main.cpp.o: ../src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Binpack.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/Binpack.dir/src/main.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Binpack.dir/src/main.cpp.o -c /home/kevshiba/reproduce/binpack/src/main.cpp
 
 CMakeFiles/Binpack.dir/src/main.cpp.i: cmake_force
@@ -111,7 +228,7 @@ CMakeFiles/Binpack.dir/src/main.cpp.s: cmake_force
 
 CMakeFiles/Binpack.dir/src/pricer.cpp.o: CMakeFiles/Binpack.dir/flags.make
 CMakeFiles/Binpack.dir/src/pricer.cpp.o: ../src/pricer.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Binpack.dir/src/pricer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/Binpack.dir/src/pricer.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Binpack.dir/src/pricer.cpp.o -c /home/kevshiba/reproduce/binpack/src/pricer.cpp
 
 CMakeFiles/Binpack.dir/src/pricer.cpp.i: cmake_force
@@ -122,27 +239,107 @@ CMakeFiles/Binpack.dir/src/pricer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Binpack.dir/src/pricer.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kevshiba/reproduce/binpack/src/pricer.cpp -o CMakeFiles/Binpack.dir/src/pricer.cpp.s
 
+CMakeFiles/Binpack.dir/src/svm/svm.cpp.o: CMakeFiles/Binpack.dir/flags.make
+CMakeFiles/Binpack.dir/src/svm/svm.cpp.o: ../src/svm/svm.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/Binpack.dir/src/svm/svm.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Binpack.dir/src/svm/svm.cpp.o -c /home/kevshiba/reproduce/binpack/src/svm/svm.cpp
+
+CMakeFiles/Binpack.dir/src/svm/svm.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Binpack.dir/src/svm/svm.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kevshiba/reproduce/binpack/src/svm/svm.cpp > CMakeFiles/Binpack.dir/src/svm/svm.cpp.i
+
+CMakeFiles/Binpack.dir/src/svm/svm.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Binpack.dir/src/svm/svm.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kevshiba/reproduce/binpack/src/svm/svm.cpp -o CMakeFiles/Binpack.dir/src/svm/svm.cpp.s
+
+CMakeFiles/Binpack.dir/src/svm/svm_predict_model.c.o: CMakeFiles/Binpack.dir/flags.make
+CMakeFiles/Binpack.dir/src/svm/svm_predict_model.c.o: ../src/svm/svm_predict_model.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building C object CMakeFiles/Binpack.dir/src/svm/svm_predict_model.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/Binpack.dir/src/svm/svm_predict_model.c.o   -c /home/kevshiba/reproduce/binpack/src/svm/svm_predict_model.c
+
+CMakeFiles/Binpack.dir/src/svm/svm_predict_model.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Binpack.dir/src/svm/svm_predict_model.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/kevshiba/reproduce/binpack/src/svm/svm_predict_model.c > CMakeFiles/Binpack.dir/src/svm/svm_predict_model.c.i
+
+CMakeFiles/Binpack.dir/src/svm/svm_predict_model.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Binpack.dir/src/svm/svm_predict_model.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/kevshiba/reproduce/binpack/src/svm/svm_predict_model.c -o CMakeFiles/Binpack.dir/src/svm/svm_predict_model.c.s
+
+CMakeFiles/Binpack.dir/src/svm/svm_train_model.c.o: CMakeFiles/Binpack.dir/flags.make
+CMakeFiles/Binpack.dir/src/svm/svm_train_model.c.o: ../src/svm/svm_train_model.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building C object CMakeFiles/Binpack.dir/src/svm/svm_train_model.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/Binpack.dir/src/svm/svm_train_model.c.o   -c /home/kevshiba/reproduce/binpack/src/svm/svm_train_model.c
+
+CMakeFiles/Binpack.dir/src/svm/svm_train_model.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Binpack.dir/src/svm/svm_train_model.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/kevshiba/reproduce/binpack/src/svm/svm_train_model.c > CMakeFiles/Binpack.dir/src/svm/svm_train_model.c.i
+
+CMakeFiles/Binpack.dir/src/svm/svm_train_model.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Binpack.dir/src/svm/svm_train_model.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/kevshiba/reproduce/binpack/src/svm/svm_train_model.c -o CMakeFiles/Binpack.dir/src/svm/svm_train_model.c.s
+
+CMakeFiles/Binpack.dir/src/training.cpp.o: CMakeFiles/Binpack.dir/flags.make
+CMakeFiles/Binpack.dir/src/training.cpp.o: ../src/training.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/Binpack.dir/src/training.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Binpack.dir/src/training.cpp.o -c /home/kevshiba/reproduce/binpack/src/training.cpp
+
+CMakeFiles/Binpack.dir/src/training.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Binpack.dir/src/training.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kevshiba/reproduce/binpack/src/training.cpp > CMakeFiles/Binpack.dir/src/training.cpp.i
+
+CMakeFiles/Binpack.dir/src/training.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Binpack.dir/src/training.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kevshiba/reproduce/binpack/src/training.cpp -o CMakeFiles/Binpack.dir/src/training.cpp.s
+
 # Object files for target Binpack
 Binpack_OBJECTS = \
+"CMakeFiles/Binpack.dir/src/MLBIN.cpp.o" \
 "CMakeFiles/Binpack.dir/src/cg.cpp.o" \
 "CMakeFiles/Binpack.dir/src/instance.cpp.o" \
-"CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.o" \
+"CMakeFiles/Binpack.dir/src/knapsack_solver.cpp.o" \
+"CMakeFiles/Binpack.dir/src/linear_svm/blas/daxpy.c.o" \
+"CMakeFiles/Binpack.dir/src/linear_svm/blas/ddot.c.o" \
+"CMakeFiles/Binpack.dir/src/linear_svm/blas/dnrm2.c.o" \
+"CMakeFiles/Binpack.dir/src/linear_svm/blas/dscal.c.o" \
+"CMakeFiles/Binpack.dir/src/linear_svm/linear.cpp.o" \
+"CMakeFiles/Binpack.dir/src/linear_svm/linear_svm_predict_model.c.o" \
+"CMakeFiles/Binpack.dir/src/linear_svm/linear_svm_train_model.c.o" \
+"CMakeFiles/Binpack.dir/src/linear_svm/tron.cpp.o" \
 "CMakeFiles/Binpack.dir/src/main.cpp.o" \
-"CMakeFiles/Binpack.dir/src/pricer.cpp.o"
+"CMakeFiles/Binpack.dir/src/pricer.cpp.o" \
+"CMakeFiles/Binpack.dir/src/svm/svm.cpp.o" \
+"CMakeFiles/Binpack.dir/src/svm/svm_predict_model.c.o" \
+"CMakeFiles/Binpack.dir/src/svm/svm_train_model.c.o" \
+"CMakeFiles/Binpack.dir/src/training.cpp.o"
 
 # External object files for target Binpack
 Binpack_EXTERNAL_OBJECTS =
 
+Binpack: CMakeFiles/Binpack.dir/src/MLBIN.cpp.o
 Binpack: CMakeFiles/Binpack.dir/src/cg.cpp.o
 Binpack: CMakeFiles/Binpack.dir/src/instance.cpp.o
-Binpack: CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.o
+Binpack: CMakeFiles/Binpack.dir/src/knapsack_solver.cpp.o
+Binpack: CMakeFiles/Binpack.dir/src/linear_svm/blas/daxpy.c.o
+Binpack: CMakeFiles/Binpack.dir/src/linear_svm/blas/ddot.c.o
+Binpack: CMakeFiles/Binpack.dir/src/linear_svm/blas/dnrm2.c.o
+Binpack: CMakeFiles/Binpack.dir/src/linear_svm/blas/dscal.c.o
+Binpack: CMakeFiles/Binpack.dir/src/linear_svm/linear.cpp.o
+Binpack: CMakeFiles/Binpack.dir/src/linear_svm/linear_svm_predict_model.c.o
+Binpack: CMakeFiles/Binpack.dir/src/linear_svm/linear_svm_train_model.c.o
+Binpack: CMakeFiles/Binpack.dir/src/linear_svm/tron.cpp.o
 Binpack: CMakeFiles/Binpack.dir/src/main.cpp.o
 Binpack: CMakeFiles/Binpack.dir/src/pricer.cpp.o
+Binpack: CMakeFiles/Binpack.dir/src/svm/svm.cpp.o
+Binpack: CMakeFiles/Binpack.dir/src/svm/svm_predict_model.c.o
+Binpack: CMakeFiles/Binpack.dir/src/svm/svm_train_model.c.o
+Binpack: CMakeFiles/Binpack.dir/src/training.cpp.o
 Binpack: CMakeFiles/Binpack.dir/build.make
 Binpack: /opt/gurobi1001/linux64/lib/libgurobi_c++.a
 Binpack: /opt/gurobi1001/linux64/lib/libgurobi100.so
+Binpack: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0
+Binpack: /usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0
 Binpack: CMakeFiles/Binpack.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable Binpack"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/kevshiba/reproduce/binpack/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Linking CXX executable Binpack"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Binpack.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

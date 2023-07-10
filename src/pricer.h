@@ -2,7 +2,7 @@
 #define PRICER_H
 #include <vector>
 #include <iostream>
-
+#include <chrono>
 
 using std::cout;
 using std::endl;
@@ -14,7 +14,7 @@ namespace Bin{
 
 
     public:
-        int column_selection = 0;
+        int column_selection;
         double cutoff;
         int sample_size;
         int niterations;
@@ -36,22 +36,42 @@ namespace Bin{
         double mean_rc = 0.;
         double stdev_rc = 0.;
         double median_rc = 0.;
+        double b0;
+        double b1;
+        double c0;
+        double c1; 
+        double c2; 
+        double c3; 
+        double c4;
+        double b;
+
+            
+        vector<double> compute_nrc(vector<vector<int>>& basic_cols);
+
+
+
 
         virtual  ~Pricer(){};
-        virtual void run() {std::cout << "error, in pricer!!!\n\n";};
+        double get_wall_time();
 
-        // vector<long> sort_indexes_inc(const vector<double> &v);
-        // long current_time_for_seeding();
+
+
+        // sorting methods
+        vector<long> sort_indexes_inc(const vector<double> &v);
+        vector<long> sort_indexes_dec(const vector<double> &v);
+
+
+        long current_time_for_seeding();
         // vector<long> sort_indexes_dec(const vector<double> &v); 
-
-
-        // double get_wall_time();
-
-        // void compute_statistics();
-
         
 
+        void include_new_cols(vector<vector<int>>& basic_cols, vector<int>& lp_basis);    
+    
 
+        void compute_statistics();
+        void include_new_cols_all(vector<vector<int>>& basic_cols);
+        
+        virtual void run() {std::cout << "error, in pricer!!!\n\n";};
 
     };
 

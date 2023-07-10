@@ -1,0 +1,3 @@
+ith_CG_iter,current_time,lp_obj,nnrc_cols,min_rc,mean_rc,median_rc,stdev_rc,column_selection_time
+1,0.492641,5,1,-1,-1,-1,0,0
+2,0.494855,4.66667,1,-0.666667,-0.666667,-0.666667,0,0

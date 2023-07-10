@@ -36,32 +36,42 @@ namespace Bin{
         vector<int> pattern;
         vector<int> lp_vbasis;
         vector<int> lp_cbasis;
-        
-        
+        double min_reduced_cost_exact;
 
+        
         void initializing_parameters();
-
+        
 
         
     public:
-
+        int seed;
         vector<int> optimal_pattern;
         int num_pattern = 0;
         double lp_bound = 0.0;
         double min_reduced_cost;
         int cg_iters =0;
-
+        double cutoff;
+        double time_duration_master=0;
+        bool lp_optimal=false;
         vector<double> dual_values;
         vector<vector<int>> pattern_set;
-        explicit CG(const Instance& bin);
+        double time_duration_pricing_exact=0;
+        double time_duration_pricing_heur=0;
+        int num_heur_runs_success = 0;
 
+        
+        explicit CG(const Instance& bin, int _seed, double cutoff);
 
+        double pricer_cutoff;
         void initializing_pattern();
         void solve_restricted_master_problem();
 
         bool solve_knapsack_dp(double cutoff, double& min_reduced_cost);
 
         void collect_training_data(vector<vector<double>>& obj_coef, vector<vector<bool>>& solution);
+        void test(int method, std::ofstream* output_file_sampling_stats, std::ofstream* output_file_cg_stats);
+
+        
 
     };
 

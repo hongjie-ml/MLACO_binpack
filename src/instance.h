@@ -6,9 +6,12 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <random>
 
 using std::string;
 using std::vector;
+using std::mt19937;
+using std::uniform_int_distribution;
 
 namespace Bin{
 
@@ -34,6 +37,7 @@ namespace Bin{
         explicit Instance(string file_name, string input_dir, bool _solve);
         void load_train_data(std::string read_from);
         void collect_train_data(std::string save_to);
+        void generate_random_pattern();
 
         
 

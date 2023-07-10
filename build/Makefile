@@ -123,6 +123,33 @@ Binpack/fast:
 	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/build
 .PHONY : Binpack/fast
 
+src/MLBIN.o: src/MLBIN.cpp.o
+
+.PHONY : src/MLBIN.o
+
+# target to build an object file
+src/MLBIN.cpp.o:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/MLBIN.cpp.o
+.PHONY : src/MLBIN.cpp.o
+
+src/MLBIN.i: src/MLBIN.cpp.i
+
+.PHONY : src/MLBIN.i
+
+# target to preprocess a source file
+src/MLBIN.cpp.i:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/MLBIN.cpp.i
+.PHONY : src/MLBIN.cpp.i
+
+src/MLBIN.s: src/MLBIN.cpp.s
+
+.PHONY : src/MLBIN.s
+
+# target to generate assembly for a file
+src/MLBIN.cpp.s:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/MLBIN.cpp.s
+.PHONY : src/MLBIN.cpp.s
+
 src/cg.o: src/cg.cpp.o
 
 .PHONY : src/cg.o
@@ -177,32 +204,248 @@ src/instance.cpp.s:
 	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/instance.cpp.s
 .PHONY : src/instance.cpp.s
 
-src/knapscak_solver.o: src/knapscak_solver.cpp.o
+src/knapsack_solver.o: src/knapsack_solver.cpp.o
 
-.PHONY : src/knapscak_solver.o
+.PHONY : src/knapsack_solver.o
 
 # target to build an object file
-src/knapscak_solver.cpp.o:
-	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.o
-.PHONY : src/knapscak_solver.cpp.o
+src/knapsack_solver.cpp.o:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/knapsack_solver.cpp.o
+.PHONY : src/knapsack_solver.cpp.o
 
-src/knapscak_solver.i: src/knapscak_solver.cpp.i
+src/knapsack_solver.i: src/knapsack_solver.cpp.i
 
-.PHONY : src/knapscak_solver.i
+.PHONY : src/knapsack_solver.i
 
 # target to preprocess a source file
-src/knapscak_solver.cpp.i:
-	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.i
-.PHONY : src/knapscak_solver.cpp.i
+src/knapsack_solver.cpp.i:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/knapsack_solver.cpp.i
+.PHONY : src/knapsack_solver.cpp.i
 
-src/knapscak_solver.s: src/knapscak_solver.cpp.s
+src/knapsack_solver.s: src/knapsack_solver.cpp.s
 
-.PHONY : src/knapscak_solver.s
+.PHONY : src/knapsack_solver.s
 
 # target to generate assembly for a file
-src/knapscak_solver.cpp.s:
-	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/knapscak_solver.cpp.s
-.PHONY : src/knapscak_solver.cpp.s
+src/knapsack_solver.cpp.s:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/knapsack_solver.cpp.s
+.PHONY : src/knapsack_solver.cpp.s
+
+src/linear_svm/blas/daxpy.o: src/linear_svm/blas/daxpy.c.o
+
+.PHONY : src/linear_svm/blas/daxpy.o
+
+# target to build an object file
+src/linear_svm/blas/daxpy.c.o:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/linear_svm/blas/daxpy.c.o
+.PHONY : src/linear_svm/blas/daxpy.c.o
+
+src/linear_svm/blas/daxpy.i: src/linear_svm/blas/daxpy.c.i
+
+.PHONY : src/linear_svm/blas/daxpy.i
+
+# target to preprocess a source file
+src/linear_svm/blas/daxpy.c.i:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/linear_svm/blas/daxpy.c.i
+.PHONY : src/linear_svm/blas/daxpy.c.i
+
+src/linear_svm/blas/daxpy.s: src/linear_svm/blas/daxpy.c.s
+
+.PHONY : src/linear_svm/blas/daxpy.s
+
+# target to generate assembly for a file
+src/linear_svm/blas/daxpy.c.s:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/linear_svm/blas/daxpy.c.s
+.PHONY : src/linear_svm/blas/daxpy.c.s
+
+src/linear_svm/blas/ddot.o: src/linear_svm/blas/ddot.c.o
+
+.PHONY : src/linear_svm/blas/ddot.o
+
+# target to build an object file
+src/linear_svm/blas/ddot.c.o:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/linear_svm/blas/ddot.c.o
+.PHONY : src/linear_svm/blas/ddot.c.o
+
+src/linear_svm/blas/ddot.i: src/linear_svm/blas/ddot.c.i
+
+.PHONY : src/linear_svm/blas/ddot.i
+
+# target to preprocess a source file
+src/linear_svm/blas/ddot.c.i:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/linear_svm/blas/ddot.c.i
+.PHONY : src/linear_svm/blas/ddot.c.i
+
+src/linear_svm/blas/ddot.s: src/linear_svm/blas/ddot.c.s
+
+.PHONY : src/linear_svm/blas/ddot.s
+
+# target to generate assembly for a file
+src/linear_svm/blas/ddot.c.s:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/linear_svm/blas/ddot.c.s
+.PHONY : src/linear_svm/blas/ddot.c.s
+
+src/linear_svm/blas/dnrm2.o: src/linear_svm/blas/dnrm2.c.o
+
+.PHONY : src/linear_svm/blas/dnrm2.o
+
+# target to build an object file
+src/linear_svm/blas/dnrm2.c.o:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/linear_svm/blas/dnrm2.c.o
+.PHONY : src/linear_svm/blas/dnrm2.c.o
+
+src/linear_svm/blas/dnrm2.i: src/linear_svm/blas/dnrm2.c.i
+
+.PHONY : src/linear_svm/blas/dnrm2.i
+
+# target to preprocess a source file
+src/linear_svm/blas/dnrm2.c.i:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/linear_svm/blas/dnrm2.c.i
+.PHONY : src/linear_svm/blas/dnrm2.c.i
+
+src/linear_svm/blas/dnrm2.s: src/linear_svm/blas/dnrm2.c.s
+
+.PHONY : src/linear_svm/blas/dnrm2.s
+
+# target to generate assembly for a file
+src/linear_svm/blas/dnrm2.c.s:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/linear_svm/blas/dnrm2.c.s
+.PHONY : src/linear_svm/blas/dnrm2.c.s
+
+src/linear_svm/blas/dscal.o: src/linear_svm/blas/dscal.c.o
+
+.PHONY : src/linear_svm/blas/dscal.o
+
+# target to build an object file
+src/linear_svm/blas/dscal.c.o:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/linear_svm/blas/dscal.c.o
+.PHONY : src/linear_svm/blas/dscal.c.o
+
+src/linear_svm/blas/dscal.i: src/linear_svm/blas/dscal.c.i
+
+.PHONY : src/linear_svm/blas/dscal.i
+
+# target to preprocess a source file
+src/linear_svm/blas/dscal.c.i:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/linear_svm/blas/dscal.c.i
+.PHONY : src/linear_svm/blas/dscal.c.i
+
+src/linear_svm/blas/dscal.s: src/linear_svm/blas/dscal.c.s
+
+.PHONY : src/linear_svm/blas/dscal.s
+
+# target to generate assembly for a file
+src/linear_svm/blas/dscal.c.s:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/linear_svm/blas/dscal.c.s
+.PHONY : src/linear_svm/blas/dscal.c.s
+
+src/linear_svm/linear.o: src/linear_svm/linear.cpp.o
+
+.PHONY : src/linear_svm/linear.o
+
+# target to build an object file
+src/linear_svm/linear.cpp.o:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/linear_svm/linear.cpp.o
+.PHONY : src/linear_svm/linear.cpp.o
+
+src/linear_svm/linear.i: src/linear_svm/linear.cpp.i
+
+.PHONY : src/linear_svm/linear.i
+
+# target to preprocess a source file
+src/linear_svm/linear.cpp.i:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/linear_svm/linear.cpp.i
+.PHONY : src/linear_svm/linear.cpp.i
+
+src/linear_svm/linear.s: src/linear_svm/linear.cpp.s
+
+.PHONY : src/linear_svm/linear.s
+
+# target to generate assembly for a file
+src/linear_svm/linear.cpp.s:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/linear_svm/linear.cpp.s
+.PHONY : src/linear_svm/linear.cpp.s
+
+src/linear_svm/linear_svm_predict_model.o: src/linear_svm/linear_svm_predict_model.c.o
+
+.PHONY : src/linear_svm/linear_svm_predict_model.o
+
+# target to build an object file
+src/linear_svm/linear_svm_predict_model.c.o:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/linear_svm/linear_svm_predict_model.c.o
+.PHONY : src/linear_svm/linear_svm_predict_model.c.o
+
+src/linear_svm/linear_svm_predict_model.i: src/linear_svm/linear_svm_predict_model.c.i
+
+.PHONY : src/linear_svm/linear_svm_predict_model.i
+
+# target to preprocess a source file
+src/linear_svm/linear_svm_predict_model.c.i:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/linear_svm/linear_svm_predict_model.c.i
+.PHONY : src/linear_svm/linear_svm_predict_model.c.i
+
+src/linear_svm/linear_svm_predict_model.s: src/linear_svm/linear_svm_predict_model.c.s
+
+.PHONY : src/linear_svm/linear_svm_predict_model.s
+
+# target to generate assembly for a file
+src/linear_svm/linear_svm_predict_model.c.s:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/linear_svm/linear_svm_predict_model.c.s
+.PHONY : src/linear_svm/linear_svm_predict_model.c.s
+
+src/linear_svm/linear_svm_train_model.o: src/linear_svm/linear_svm_train_model.c.o
+
+.PHONY : src/linear_svm/linear_svm_train_model.o
+
+# target to build an object file
+src/linear_svm/linear_svm_train_model.c.o:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/linear_svm/linear_svm_train_model.c.o
+.PHONY : src/linear_svm/linear_svm_train_model.c.o
+
+src/linear_svm/linear_svm_train_model.i: src/linear_svm/linear_svm_train_model.c.i
+
+.PHONY : src/linear_svm/linear_svm_train_model.i
+
+# target to preprocess a source file
+src/linear_svm/linear_svm_train_model.c.i:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/linear_svm/linear_svm_train_model.c.i
+.PHONY : src/linear_svm/linear_svm_train_model.c.i
+
+src/linear_svm/linear_svm_train_model.s: src/linear_svm/linear_svm_train_model.c.s
+
+.PHONY : src/linear_svm/linear_svm_train_model.s
+
+# target to generate assembly for a file
+src/linear_svm/linear_svm_train_model.c.s:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/linear_svm/linear_svm_train_model.c.s
+.PHONY : src/linear_svm/linear_svm_train_model.c.s
+
+src/linear_svm/tron.o: src/linear_svm/tron.cpp.o
+
+.PHONY : src/linear_svm/tron.o
+
+# target to build an object file
+src/linear_svm/tron.cpp.o:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/linear_svm/tron.cpp.o
+.PHONY : src/linear_svm/tron.cpp.o
+
+src/linear_svm/tron.i: src/linear_svm/tron.cpp.i
+
+.PHONY : src/linear_svm/tron.i
+
+# target to preprocess a source file
+src/linear_svm/tron.cpp.i:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/linear_svm/tron.cpp.i
+.PHONY : src/linear_svm/tron.cpp.i
+
+src/linear_svm/tron.s: src/linear_svm/tron.cpp.s
+
+.PHONY : src/linear_svm/tron.s
+
+# target to generate assembly for a file
+src/linear_svm/tron.cpp.s:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/linear_svm/tron.cpp.s
+.PHONY : src/linear_svm/tron.cpp.s
 
 src/main.o: src/main.cpp.o
 
@@ -258,6 +501,114 @@ src/pricer.cpp.s:
 	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/pricer.cpp.s
 .PHONY : src/pricer.cpp.s
 
+src/svm/svm.o: src/svm/svm.cpp.o
+
+.PHONY : src/svm/svm.o
+
+# target to build an object file
+src/svm/svm.cpp.o:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/svm/svm.cpp.o
+.PHONY : src/svm/svm.cpp.o
+
+src/svm/svm.i: src/svm/svm.cpp.i
+
+.PHONY : src/svm/svm.i
+
+# target to preprocess a source file
+src/svm/svm.cpp.i:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/svm/svm.cpp.i
+.PHONY : src/svm/svm.cpp.i
+
+src/svm/svm.s: src/svm/svm.cpp.s
+
+.PHONY : src/svm/svm.s
+
+# target to generate assembly for a file
+src/svm/svm.cpp.s:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/svm/svm.cpp.s
+.PHONY : src/svm/svm.cpp.s
+
+src/svm/svm_predict_model.o: src/svm/svm_predict_model.c.o
+
+.PHONY : src/svm/svm_predict_model.o
+
+# target to build an object file
+src/svm/svm_predict_model.c.o:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/svm/svm_predict_model.c.o
+.PHONY : src/svm/svm_predict_model.c.o
+
+src/svm/svm_predict_model.i: src/svm/svm_predict_model.c.i
+
+.PHONY : src/svm/svm_predict_model.i
+
+# target to preprocess a source file
+src/svm/svm_predict_model.c.i:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/svm/svm_predict_model.c.i
+.PHONY : src/svm/svm_predict_model.c.i
+
+src/svm/svm_predict_model.s: src/svm/svm_predict_model.c.s
+
+.PHONY : src/svm/svm_predict_model.s
+
+# target to generate assembly for a file
+src/svm/svm_predict_model.c.s:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/svm/svm_predict_model.c.s
+.PHONY : src/svm/svm_predict_model.c.s
+
+src/svm/svm_train_model.o: src/svm/svm_train_model.c.o
+
+.PHONY : src/svm/svm_train_model.o
+
+# target to build an object file
+src/svm/svm_train_model.c.o:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/svm/svm_train_model.c.o
+.PHONY : src/svm/svm_train_model.c.o
+
+src/svm/svm_train_model.i: src/svm/svm_train_model.c.i
+
+.PHONY : src/svm/svm_train_model.i
+
+# target to preprocess a source file
+src/svm/svm_train_model.c.i:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/svm/svm_train_model.c.i
+.PHONY : src/svm/svm_train_model.c.i
+
+src/svm/svm_train_model.s: src/svm/svm_train_model.c.s
+
+.PHONY : src/svm/svm_train_model.s
+
+# target to generate assembly for a file
+src/svm/svm_train_model.c.s:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/svm/svm_train_model.c.s
+.PHONY : src/svm/svm_train_model.c.s
+
+src/training.o: src/training.cpp.o
+
+.PHONY : src/training.o
+
+# target to build an object file
+src/training.cpp.o:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/training.cpp.o
+.PHONY : src/training.cpp.o
+
+src/training.i: src/training.cpp.i
+
+.PHONY : src/training.i
+
+# target to preprocess a source file
+src/training.cpp.i:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/training.cpp.i
+.PHONY : src/training.cpp.i
+
+src/training.s: src/training.cpp.s
+
+.PHONY : src/training.s
+
+# target to generate assembly for a file
+src/training.cpp.s:
+	$(MAKE) -f CMakeFiles/Binpack.dir/build.make CMakeFiles/Binpack.dir/src/training.cpp.s
+.PHONY : src/training.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -267,21 +618,60 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... Binpack"
+	@echo "... src/MLBIN.o"
+	@echo "... src/MLBIN.i"
+	@echo "... src/MLBIN.s"
 	@echo "... src/cg.o"
 	@echo "... src/cg.i"
 	@echo "... src/cg.s"
 	@echo "... src/instance.o"
 	@echo "... src/instance.i"
 	@echo "... src/instance.s"
-	@echo "... src/knapscak_solver.o"
-	@echo "... src/knapscak_solver.i"
-	@echo "... src/knapscak_solver.s"
+	@echo "... src/knapsack_solver.o"
+	@echo "... src/knapsack_solver.i"
+	@echo "... src/knapsack_solver.s"
+	@echo "... src/linear_svm/blas/daxpy.o"
+	@echo "... src/linear_svm/blas/daxpy.i"
+	@echo "... src/linear_svm/blas/daxpy.s"
+	@echo "... src/linear_svm/blas/ddot.o"
+	@echo "... src/linear_svm/blas/ddot.i"
+	@echo "... src/linear_svm/blas/ddot.s"
+	@echo "... src/linear_svm/blas/dnrm2.o"
+	@echo "... src/linear_svm/blas/dnrm2.i"
+	@echo "... src/linear_svm/blas/dnrm2.s"
+	@echo "... src/linear_svm/blas/dscal.o"
+	@echo "... src/linear_svm/blas/dscal.i"
+	@echo "... src/linear_svm/blas/dscal.s"
+	@echo "... src/linear_svm/linear.o"
+	@echo "... src/linear_svm/linear.i"
+	@echo "... src/linear_svm/linear.s"
+	@echo "... src/linear_svm/linear_svm_predict_model.o"
+	@echo "... src/linear_svm/linear_svm_predict_model.i"
+	@echo "... src/linear_svm/linear_svm_predict_model.s"
+	@echo "... src/linear_svm/linear_svm_train_model.o"
+	@echo "... src/linear_svm/linear_svm_train_model.i"
+	@echo "... src/linear_svm/linear_svm_train_model.s"
+	@echo "... src/linear_svm/tron.o"
+	@echo "... src/linear_svm/tron.i"
+	@echo "... src/linear_svm/tron.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
 	@echo "... src/pricer.o"
 	@echo "... src/pricer.i"
 	@echo "... src/pricer.s"
+	@echo "... src/svm/svm.o"
+	@echo "... src/svm/svm.i"
+	@echo "... src/svm/svm.s"
+	@echo "... src/svm/svm_predict_model.o"
+	@echo "... src/svm/svm_predict_model.i"
+	@echo "... src/svm/svm_predict_model.s"
+	@echo "... src/svm/svm_train_model.o"
+	@echo "... src/svm/svm_train_model.i"
+	@echo "... src/svm/svm_train_model.s"
+	@echo "... src/training.o"
+	@echo "... src/training.i"
+	@echo "... src/training.s"
 .PHONY : help
 
 

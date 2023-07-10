@@ -1,15 +1,10 @@
 #include "training.h"
 #include "MLBIN.h"
 
-
-
-
 namespace Bin{
 
-    Training::Training(std::vector<std::string> training_files, 
-                    std::string input_dir, double alpha, int kernel_type): 
-                    training_files{training_files}, input_dir{input_dir},alpha{alpha}, kernel_type{kernel_type}
-    {
+    Training::Training(std::vector<std::string> training_files, std::string input_dir, double alpha, int kernel_type) :
+        training_files{training_files}, input_dir{input_dir}, alpha{alpha}, kernel_type{kernel_type} {
         std::cout << "Number of training file is " << training_files.size() << endl;
         construct_training_set();
     }
@@ -19,8 +14,7 @@ namespace Bin{
     void Training::construct_training_set(){
         std::string train_path = train_data_dir + train_file_name;
         char train_data[train_path.size() + 1];
-        strcpy(train_data, train_path.c_str());
-
+        std::strcpy(train_data, train_path.c_str());
         std::ofstream train_file(train_data, std::ios::trunc);
         if (! train_file.is_open()){
             std::cout << "Cannot open the output file " <<  train_data << "\n";
@@ -34,17 +28,19 @@ namespace Bin{
         for (auto d = 0u; d < training_files.size(); ++d){
             auto bin = Instance(training_files[d], input_dir, true);
             auto n = bin.nitems;
+            std::cout << "number of pricing problems: " << bin.num_pricing << endl;
 
 
-            std::cout << "number of pricing problems: " << bin.num_pricing;
             for (auto inst_idx=0; inst_idx< bin.num_pricing; ++inst_idx){
                 std::vector<double>& cur_pattern_obj_coef = bin.knapsack_obj_coefs[inst_idx];
                 std::vector<bool>& cur_pattern_sol = bin.knapsack_sol[inst_idx];
+                
+                // initializing MLBIN pricer training, 20 samples
+                MLBIN mlbin(0, 0., 0., n, n, bin.capacity, bin.weight, cur_pattern_obj_coef, 1e8);
 
-                MLBIN mlbin(0);
                 mlbin.random_sampling();
                 mlbin.compute_correlation_based_measure();
-                mlbin.compute_bound();
+                mlbin.compute_ranking_based_measure();
                 train_file.open(train_data, std::ios::app);
                 for (auto i = 0; i < n; ++i){
                     if (cur_pattern_sol[i]){
@@ -53,23 +49,19 @@ namespace Bin{
                     else
                         num0++;
                     float val = cur_pattern_sol[i];
+                    float corr_norm = (mlbin.max_cbm == 0) ? mlbin.corr_xy[i] : mlbin.corr_xy[i] / mlbin.max_cbm;
+                    train_file << std::fixed << std::setprecision(0) << val << " ";
+                    train_file << "1:" << std::fixed << std::setprecision(6) << mlbin.dual_values[i]/mlbin.max_dual << " ";
+                    train_file << "2:" << std::fixed << std::setprecision(6) << (float)bin.weight[i]/(float)bin.capacity << " ";
+                    train_file << "3:" << std::fixed << std::setprecision(6) << corr_norm << " ";
+                    train_file << "4:" << std::fixed << std::setprecision(6) << mlbin.ranking_scores[i] << " "<< endl;
                     
-                    train_file << val << " ";
-                    train_file << "1:" << std::fixed << std::setprecision(6) << mlbin.dual_values[i]/mlph.max_dual << " ";
-                    train_file << "2:" << std::fixed << std::setprecision(6) << bin.weight[i]/bin.capacity << " ";
-                    train_file << "3:" << std::fixed << std::setprecision(6) << mlbin.bound_norm[i] << " ";
-                    train_file << "5:" << std::fixed << std::setprecision(6) << mlbin.corr_norm << " ";
-                    train_file << "5:" << std::fixed << std::setprecision(6) << ;
-                    train_file << "4:" << std::fixed << std::setprecision(6) << mlbin.weight_rank << " ";
                 }
                 train_file.close();
-
-
-                 
             }
         }
         std::cout << "num0 is " << num0 << "; " << "num1 is " << num1 << std::endl; 
-        weight = alpha * num0/num1;
+        weight = alpha * num0/num1; 
 
     }
 

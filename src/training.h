@@ -6,8 +6,8 @@
 
 
 extern "C" {
-#include "linear_svm/linear_svm_predict_model.h"
-#include "linear_svm_train_model.h"
+#include "svm/svm_predict_model.h"
+#include "svm/svm_train_model.h"
 }
 
 namespace Bin {
@@ -17,7 +17,7 @@ namespace Bin {
         std::string input_dir;
         std::string train_data_dir = "../train_data/";
         std::string svm_train_model_name = "svm_train_model";
-        std::string train_file_name = "train_data.csv";
+        std::string train_file_name = "train_data.txt";
         double alpha; //penalty of miss-classifying positive training instances
         int kernel_type;
         int prob = 0;

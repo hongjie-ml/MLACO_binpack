@@ -3,9 +3,10 @@
         {
             "name": "Linux",
             "includePath": [
+                "/usr/include/**",
                 "${workspaceFolder}/**",
-                "/opt/gurobi1001/linux64/include/**",
-                "/usr/include/**"
+                "/opt/gurobi1001/linux64/include/**"
+
             ],
             "defines": [],
             "cStandard": "c17",
