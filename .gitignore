@@ -1,5 +1,9 @@
 #ignore all files in any directory named build
 build/
+CMakeFiles/
+CMakeCache.txt
+Makefile
+cmake_install.cmake
 
 #ignore train_data, including binpack data and conflict data
 train_data/
