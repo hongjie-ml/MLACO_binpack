@@ -29,7 +29,12 @@ namespace Bin{
         std::vector<float> predicted_value;
         vector<vector<int>> pattern_set;
         std::vector<double> objs;
+        const vector<vector<int>> adj_list;
+        const vector<vector<bool>> adj_matrix;
+        const vector<double> degree_norm;
         double best_obj = 0.0;
+
+
 
         int method;
         int nitems;
@@ -55,15 +60,18 @@ namespace Bin{
             vector<float> corr_xy;
             vector<float> ranking_scores; 
             MLBIN(int _method, double b0, double b1, int _n, int _sample_size, int _capacity, vector<int> _weight,
-                const vector<double>& _dual_values, int _upper_col_limit);
+                const vector<double>& _dual_values, const vector<double>& _degree_norm, 
+                const vector<vector<bool>>& _adj_matrix, const vector<vector<int>>& _adj_list, int _upper_col_limit);
 
             MLBIN(int _method, double _cutoff, int _n, int _sample_size, int _capacity, vector<int> _weight, 
-                const vector<double>& _dual_values, int _upper_col_limit);
+                const vector<double>& _dual_values, const vector<double>& _degree_norm, 
+            const vector<vector<bool>>& _adj_matrix, const vector<vector<int>>& _adj_list, int _upper_col_limit);
 
             void random_sampling(); // sampling columns
             // void compute_weight_ratio();
             void compute_correlation_based_measure();
             void compute_ranking_based_measure();
+            void compute_adjacent_weight();
             void make_prediction(int ith_iteration);
 
             void run_iteration(int ith_iteration);

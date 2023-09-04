@@ -20,11 +20,17 @@ namespace Bin{
 
         
         int bestsolvalue;
-        const string file_name;
-        const string input_dir;
+        const string bin_file_name;
+        const string conflict_file_name;
+        std::string dataset_input_dir;
+        std::string conflict_input_dir;
+
+
         
         void read_bpa();
-
+        void read_conflict();
+        void read_bintxt();
+        
 
     public:
         int num_pricing = 0;
@@ -33,8 +39,14 @@ namespace Bin{
         vector<vector<bool>> knapsack_sol;
         int nitems;
         int capacity;
+        int n_edges;
+        vector<vector<int>> adj_list;
+        vector<double> degree_norm;
+        float max_node_degree_norm;
+        vector<int> degree;
 
-        explicit Instance(string file_name, string input_dir, bool _solve);
+
+        explicit Instance(string bin_file_name, string conflict_file_name, string input_dir, bool _solve);
         void load_train_data(std::string read_from);
         void collect_train_data(std::string save_to);
         void generate_random_pattern();

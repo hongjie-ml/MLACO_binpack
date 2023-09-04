@@ -1,2 +1,0 @@
-optimality,lp_obj,tot_time,tot_cpu_time,master_duration,heur_pricing_duration,exact_pricing_duration,#CG_iter,#added_columns,#heur_success
-1,269.125,6.33624,6.31872,4.87981,1.44014,0,83,82,82

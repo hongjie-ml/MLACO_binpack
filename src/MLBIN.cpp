@@ -7,28 +7,38 @@ using std::string;
 
 namespace Bin {
 
-
+    // constructor for training
     MLBIN::MLBIN(int _method, double b0, double b1, int _n, int _sample_size, int _capacity, vector<int> _weight,
-                const vector<double>& _dual_values, int _upper_col_limit):  b0{b0}, b1{b1}{
+                const vector<double>& _dual_values, const vector<double>& _degree_norm, 
+            const vector<vector<bool>>& _adj_matrix, const vector<vector<int>>& _adj_list,  int _upper_col_limit):  
+            degree_norm{_degree_norm}, adj_matrix{_adj_matrix}, adj_list{_adj_list}, b0{b0}, b1{b1}, dual_values{_dual_values}
+        {
         
-        dual_values = _dual_values;
+
         capacity = _capacity;
         weight = _weight;
         method = _method;
         nitems = _n;
         sample_size=_sample_size;
         upper_col_limit = _upper_col_limit;
-        niterations = 5;
+        niterations = 1;
         best_rc_current_iteration = vector<double>(niterations);
         num_neg_rc_current_iteration = vector<long>(niterations);
         heur_best_reduced_cost = 1;
-        
+
+
+
         max_dual = 0.;
+
         for (auto i = 0; i < nitems; ++i){
             if (dual_values[i] > max_dual){
                 max_dual = dual_values[i];
+
             }
         }
+
+
+
         identites = std::set<std::string>();
 
 
@@ -37,9 +47,11 @@ namespace Bin {
 
     }
 
-
+    // constructor for testing
     MLBIN::MLBIN(int _method, double _cutoff, int _n, int _sample_size, int _capacity, vector<int> _weight, 
-            const vector<double>& _dual_values, int _upper_col_limit): weight{_weight}{
+            const vector<double>& _dual_values, const vector<double>& _degree_norm, 
+            const vector<vector<bool>>& _adj_matrix, const vector<vector<int>>& _adj_list, int _upper_col_limit):  
+            degree_norm{_degree_norm}, adj_matrix{_adj_matrix}, adj_list{_adj_list}, weight{_weight}{
             
         method = _method;
         cutoff = _cutoff;
@@ -48,7 +60,6 @@ namespace Bin {
         sample_size = _sample_size;
         capacity = _capacity;
         upper_col_limit = _upper_col_limit;
-
         niterations = 50;
         best_rc_current_iteration = vector<double>(niterations);
         num_neg_rc_current_iteration = vector<long>(niterations);
@@ -56,7 +67,7 @@ namespace Bin {
 
 
         //read svm param files
-        
+        cout << "reading svm param..." << endl;
         std::ifstream svm_param_file("../svm.param");
         if (svm_param_file.good()){
             string line;
@@ -70,9 +81,15 @@ namespace Bin {
             getline(svm_param_file, line);
             c3 = std::stod(line);
             getline(svm_param_file, line);
+            c4 = std::stod(line);
+            // getline(svm_param_file, line);
+            // c5 = std::stod(line);
+            // getline(svm_param_file, line);
+            // c6 = std::stod(line);
+            getline(svm_param_file, line);
             b = std::stod(line);
             svm_param_file.close();
-            // cout << c0 << " " << c1 << " " << c2 << " " << c3 << " " << b;
+            cout << c0 << " " << c1 << " " << c2 << " " << c3 << " " << c4 << " "<< b;
         }
 
         cutoff = 1e10;
@@ -85,15 +102,11 @@ namespace Bin {
         identites = std::set<std::string>();
 
     
-    
     }
 
 
-
-
-
-
     void MLBIN::random_sampling(){
+        
         objs = vector<double> (sample_size);
         pattern_set = vector<vector<int>> (sample_size);
         long time_seed = current_time_for_seeding();    
@@ -128,13 +141,14 @@ namespace Bin {
                 int remaining_capacity = capacity - aggregated_weight;
                 num = 0;
                 for (int j = 0; j < nb_candidates; ++ j){
-                    if (remaining_capacity > weight[candidates[j]] && j != idx){
+                    if (remaining_capacity > weight[candidates[j]] && j != idx && adj_matrix[item][candidates[j]] == 1){
                         candidates[num] = candidates[j];
                         num++;
                     }
                 }
                 nb_candidates = num;
             }
+            
             std::sort(pattern_set[i].begin(), pattern_set[i].end());
             std::stringstream ss;
             for (int k = 0; k < pattern_set[i].size(); ++k){
@@ -149,15 +163,11 @@ namespace Bin {
                 identites.insert(identity);
             }
         }
+    
+        // cout << "negative rc col size :" << neg_rc_cols.size() << endl;
+        // cout << "-------" << endl;
+        
 
-        cout << "negative rc col size :" << neg_rc_cols.size();
-        cout << "-------" << endl;
-        for (int i =0; i < neg_rc_cols.size(); ++i){
-            for (int j=0; j < neg_rc_cols[i].size(); ++j){
-                cout << neg_rc_cols[i][j] << " ";
-            }
-            cout << endl;
-        }
         
 
 
@@ -198,16 +208,13 @@ namespace Bin {
             }
         }
         
-        // cout << "ranking scores" << endl;
-        // for (int i = 0; i < nitems; ++i){
-        //     cout << ranking_scores[i] << " ";
-        // }
 
 
     }
 
 
     void MLBIN::compute_correlation_based_measure(){
+        
         float sum_y = 0.0;
         for (auto i = 0; i < sample_size; ++i){
             sum_y += objs[i];
@@ -224,7 +231,7 @@ namespace Bin {
             sum_diff_y += diff_y[i];
 
         }
-
+        
         vector<float> mean_x(nitems, 0.0);
         vector<float> S1(nitems, 0.0);
         
@@ -266,35 +273,69 @@ namespace Bin {
                 if (corr_xy[i] > max_cbm)
                     max_cbm = corr_xy[i];
 
-                // if (corr_xy[i]!=corr_xy[i]){
-                //     std::cout << variance_x[i] << " " << variance_y << "\n";
-                //}
-        }
 
+        }
+        
 
 
     }
 
 
-    void MLBIN::make_prediction(int ith_iteration){
-        compute_correlation_based_measure();
-        compute_ranking_based_measure();
 
+
+
+    void MLBIN::make_prediction(int ith_iteration){
+
+        
+        compute_correlation_based_measure();
+        
+        compute_ranking_based_measure();
+        
         predicted_value = std::vector<float>(nitems, 0);
         float projection;
-
+        
+        
         if (max_cbm == 0) max_cbm == 1;
-
+        
         for (int i = 0; i < nitems; ++i){
+            // int adjacent_item_min_weight;
+            // int adjacent_item_max_weight;
+
+            // if (adj_list[i].size() != 0){
+
+            //     adjacent_item_min_weight = weight[adj_list[i][0]];
+            //     adjacent_item_max_weight = weight[adj_list[i][0]];
+                
+            //     for (int j = 0; j < adj_list[i].size(); j++){
+            //         if (weight[adj_list[i][j]] < adjacent_item_min_weight){
+            //             adjacent_item_min_weight = weight[adj_list[i][j]];
+            //         }
+            //         if (weight[adj_list[i][j]] > adjacent_item_max_weight){
+            //             adjacent_item_max_weight = weight[adj_list[i][j]];
+            //         }
+            //     }
+            // }
+            // else{
+            //     adjacent_item_min_weight = 0;
+            //     adjacent_item_max_weight = 0;
+            // }
+
+
             projection =
             c0 * dual_values[i]/max_dual +
             c1 * (float)weight[i]/(float)capacity +
             c2 * corr_xy[i]/max_cbm +
-            c3 * ranking_scores[i]/max_rbm + b;
+            c3 * ranking_scores[i]/max_rbm +
+            c4 * degree_norm[i] + b;
+            // c5 * adjacent_item_min_weight/(float)capacity +
+            // c6 * adjacent_item_max_weight/(float)capacity + b;
 
-            predicted_value[i] = 1 -1.0/(1 + exp(b0*projection + b1));
+
+            predicted_value[i] = 1.0/(1 + exp(-projection));
+
+
         }
-
+   
 
     }
 
@@ -323,6 +364,7 @@ namespace Bin {
             double r;
             double prob;
             int aggregated_weight = 0;
+
             while (nb_candidates >0){
                 r = dist(mt);
 
@@ -330,7 +372,8 @@ namespace Bin {
                     sel_idx = idx % nitems;
 
                 } else
-                {
+                {   
+                    // calculate total predicted_value for each column
                     sum = 0.;
                     for (int i = 0; i < nb_candidates; i++){
                         sum += predicted_value[candidates[i]];
@@ -341,19 +384,33 @@ namespace Bin {
                         for (int i = 0; i < nitems; i++)
                             distribution[candidates[i]] = 1. / nb_candidates;
                     }
-                    else{
-                        for (int i = 0; i < nitems; i++)
-                            distribution[candidates[i]] = predicted_value[candidates[i]] / sum;
-                    }
+                    else{ 
 
+                        // assign probability to each item in candidate
+                        for (int i = 0; i < nitems; i++){
+                            distribution[candidates[i]] = predicted_value[candidates[i]]/sum;
+                            }
+                    }
+                    // cout << "prob: " << endl;
+                    double max_prob = 0;
                     for (j = 0; j < nb_candidates; j++){
                         prob = distribution[candidates[j]];
-                        if (r > prob)
-                            r -= prob;
-                        else
-                            break;
+                        // cout << prob << endl;
+                        
+                        if (prob > max_prob){
+                            max_prob = prob;
+                            sel_idx = j;
+                        }
+
+                        // if (prob > r){
+                        //     r -= prob;
+                        // }
+                        // else
+                        //     break;
                     }
+                    // cout << "max prob " << max_prob << endl;
                     sel_idx = (j==nb_candidates) ? 0 : j;
+
                 }
 
                 auto sel_item = candidates[sel_idx];
@@ -361,9 +418,10 @@ namespace Bin {
                 obj += dual_values[sel_item];
                 aggregated_weight += weight[sel_item];
                 int remaining_capacity = capacity - aggregated_weight;
-                int num = 0;    
+                int num = 0;
+                // const std::vector<bool>& neighbors = adj_matrix[sel_item];
                 for (int j = 0; j < nb_candidates; ++ j){
-                    if (remaining_capacity > weight[candidates[j]] && j != sel_idx){
+                    if (remaining_capacity > weight[candidates[j]] && j != sel_idx && adj_matrix[sel_item][candidates[j]]==1){
                         candidates[num] = candidates[j];
                         num++;
                     }
@@ -372,26 +430,29 @@ namespace Bin {
             }
             
 
-
-
             std::sort(sample.begin(), sample.end());
             std::stringstream ss;
             for (auto k = 0; k < sample.size(); k++){
                 ss << sample[k] << " ";
+                
             }
             std::string identity = ss.str();  
  
             if (best_obj < obj)
                 best_obj = obj;
+            
+        
             bool duplicate = identites.find(identity) != identites.end();
-                if (!duplicate && 1 - obj < THRESHOLD ){
-                        neg_rc_cols.push_back(sample);
-                        neg_rc_vals.push_back(1-obj);
-                        identites.insert(identity);
-                }
+            if (!duplicate && 1 - obj < THRESHOLD ){
+                    neg_rc_cols.push_back(sample);
+                    neg_rc_vals.push_back(1-obj);
+                    identites.insert(identity);
+            }
 
         }
+        
         heur_best_reduced_cost = 1 - best_obj;
+
     }
 
 
@@ -401,13 +462,15 @@ namespace Bin {
 
         start_time = get_wall_time();
         random_sampling();
-
-        cout << "neg rc val size" << neg_rc_vals.size() << endl;
-
-        for (auto i = 0; i < sample_size; ++i){
-            
+        
+        cout << "Running MLBIN after random sampling...." << endl;
+        
+        for (auto i = 0; i < niterations; ++i){
+            // cout << "the iter " << i << endl;
             if (i == 0){
+                
                 this->make_prediction(i);
+                
             }
             
             this->run_iteration(i);
@@ -420,11 +483,11 @@ namespace Bin {
 
             best_rc_current_iteration[i] = heur_best_reduced_cost;
             num_neg_rc_current_iteration[i] = nrc_cols_cur_iteration;
+
             if (get_wall_time() - start_time > cutoff)
                 break;
             
         }
-        cout << "neg rc val size" << neg_rc_vals.size() << endl;
         compute_statistics();
         // cout << "dominate_selection_time: " << dominate_selection_time << "\n";
  

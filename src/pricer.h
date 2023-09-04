@@ -43,6 +43,8 @@ namespace Bin{
         double c2; 
         double c3; 
         double c4;
+        double c5;
+        double c6;
         double b;
 
             
@@ -66,7 +68,7 @@ namespace Bin{
         
 
         void include_new_cols(vector<vector<int>>& basic_cols, vector<int>& lp_basis);    
-    
+        void include_best_nrc_col(vector<vector<int>>& basic_cols);
 
         void compute_statistics();
         void include_new_cols_all(vector<vector<int>>& basic_cols);

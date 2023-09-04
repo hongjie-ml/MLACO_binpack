@@ -23,11 +23,10 @@ namespace Bin{
         vector<double> times;
         vector<vector<int>> sols;
         vector<double> reduced_costs;
-
+        vector<vector<bool>> adj_matrix;
+        vector<vector<int>> adj_list;
+        int method;
         
-
-
-
         int capacity;
         int nitems;
         vector<int> weight;
@@ -35,11 +34,22 @@ namespace Bin{
         vector<int> optimal_pattern;
         bool isOptimal=false;
         double best_obj;
-        explicit knapsack_solver(double _cutoff, const vector<double>& _dual_values, 
-            int capacity, const vector<int>& _weight, int _nitems, long long _upper_col_limit);
+        explicit knapsack_solver(int method, double _cutoff, const vector<double>& _dual_values, 
+            int capacity, const vector<int>& _weight, int _nitems, 
+            std::vector<std::vector<bool>> _adj_matrix, std::vector<std::vector<int>> _adj_list, long long _upper_col_limit);
 
 
-        void solve_knapsack_dp();
+        // void solve_knapsack_dp();
+        void solve_knapsackGraph_gurobi();
+        void solve_knapsackGraph_ACO();
+        
+        // MLBIN
+        
+        
+        // More ML methods, like ML + ACO
+        void solve_knapsackGraph_ACO_MLenhanced();
+
+        
         void run();
         void postprocessing();
         ~knapsack_solver(){};

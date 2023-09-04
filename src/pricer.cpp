@@ -38,7 +38,10 @@ namespace Bin{
 
     
     void Pricer::compute_statistics(){
-                // calculate statistics
+        // calculate statistics
+
+
+
         num_neg_rc_col = neg_rc_vals.size();
         if (num_neg_rc_col == 0){
             best_rc = 0.; mean_rc=0.; median_rc=0.; stdev_rc=0.;
@@ -64,15 +67,39 @@ namespace Bin{
         }
         else if (column_selection == 2){
             // 
+            include_best_nrc_col(basic_cols);
         }
 
 
     }
 
 
+    void Pricer::include_best_nrc_col(vector<vector<int>>& basic_cols){
+        
+    };
+
+
+
+
+
     void Pricer::include_new_cols_all(vector<vector<int>>& basic_cols){
         cout << "column selection method: include_new_cols_all\n";
         basic_cols.insert(basic_cols.end(), neg_rc_cols.begin(), neg_rc_cols.end());
+        
+        // cout << "Debugging ..." <<endl;
+        // for (int x=0; x < neg_rc_cols.size(); x++){
+        //     for (int y = 0; y < neg_rc_cols[x].size(); y++){
+        //         cout << neg_rc_cols[x][y] << " ";
+        //     }
+        //     cout << endl;
+        // }
+        // cout << "Debugging ..." <<endl;
+        // for (int x=0; x < neg_rc_vals.size(); x++){
+        //     cout << neg_rc_vals[x] << " ";
+        // }
+        // cout << endl;
+
+
     }
 
 
