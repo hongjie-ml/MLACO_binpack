@@ -10,3 +10,11 @@ train_data/
 
 #ignore test data
 test_data/
+
+
+#ignore result
+easy_result/
+hard_result/
+
+#ignore trained model file
+svm.param

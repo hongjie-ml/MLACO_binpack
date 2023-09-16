@@ -2,13 +2,13 @@ cmake_minimum_required(VERSION 3.1)
 
 project(Binpack)
 
-# option(CXX "enable C++ compilation" ON)
+option(CXX "enable C++ compilation" ON)
 if(CXX)
   enable_language(CXX)
 endif()
 
 
-
+set(CMAKE_CXX_FLAGS "-lstdc++fs -std=c++17")
 set(CMAKE_MODULE_PATH               "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 

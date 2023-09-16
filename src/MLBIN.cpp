@@ -69,19 +69,22 @@ namespace Bin {
         //read svm param files
         cout << "reading svm param..." << endl;
         std::ifstream svm_param_file("../svm.param");
+
         if (svm_param_file.good()){
             string line;
+            
             getline(svm_param_file, line);
-            // cout << line;
+            // std::cout << line << endl;
             c0 = std::stod(line);
+            // cout << c0 << endl;
             getline(svm_param_file, line);
             c1 = std::stod(line);
             getline(svm_param_file, line);
             c2 = std::stod(line);
             getline(svm_param_file, line);
             c3 = std::stod(line);
-            getline(svm_param_file, line);
-            c4 = std::stod(line);
+            // getline(svm_param_file, line);
+            // c4 = std::stod(line);
             // getline(svm_param_file, line);
             // c5 = std::stod(line);
             // getline(svm_param_file, line);

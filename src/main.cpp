@@ -9,7 +9,7 @@ using Bin::MLBIN;
 #include <sys/time.h>
 #include <fstream>
 
-
+#include <filesystem>
 #include <boost/filesystem.hpp>
 
 
@@ -29,72 +29,73 @@ static double get_wall_time(){
     return (double)time.tv_sec + (double)time.tv_usec * .000001;
 }
 
-vector<string> file_name{
-
-    "Falkenauer_u250_00","Falkenauer_u250_01", "Falkenauer_u250_02", "Falkenauer_u250_03", 
-    "Falkenauer_u250_04", "Falkenauer_t249_00", "Falkenauer_t249_01", "Falkenauer_t249_02", 
-    "Falkenauer_t249_03", "Falkenauer_t249_04"
-// 
-// "Falkenauer_t120_01", 
-    // "Falkenauer_t249_19", 
-// "Falkenauer_t249_04", "Falkenauer_t501_05", "Falkenauer_t249_06", "Falkenauer_t249_07",
-// "Falkenauer_t249_08", "Falkenauer_t249_09"
-// "Falkenauer_t501_08"
-// "Falkenauer_t249_17", "Falkenauer_t249_08",
-//  "Falkenauer_t249_12", "Falkenauer_t249_16", , "Falkenauer_t249_18", 
-//  "Falkenauer_t249_11", "Falkenauer_t249_05", "Falkenauer_t249_14", "Falkenauer_t249_09"
-//  "Falkenauer_t249_02", "Falkenauer_t249_03", "Falkenauer_t249_01", "Falkenauer_t249_13", 
-//  "Falkenauer_t249_06",  "Falkenauer_t249_07", "Falkenauer_t249_10", "Falkenauer_t249_15",
-//   "Falkenauer_t501_05",  "Falkenauer_t501_01", "Falkenauer_t501_12", "Falkenauer_t501_08",
-//  "Falkenauer_t501_11", "Falkenauer_t501_18", "Falkenauer_t501_13", "Falkenauer_t501_02", 
-//  "Falkenauer_t501_00",
-//   "Falkenauer_t501_16", "Falkenauer_t501_03", "Falkenauer_t501_17", "Falkenauer_t501_06",
-//  "Falkenauer_t501_10", "Falkenauer_t501_09", "Falkenauer_t501_04", "Falkenauer_t501_14",
-//  "Falkenauer_t501_19", "Falkenauer_t501_07", "Falkenauer_t501_15", "Falkenauer_u250_01",
-//  "Falkenauer_u250_13", "Falkenauer_u250_16", "Falkenauer_u250_09", "Falkenauer_u250_05",
-//  "Falkenauer_u250_03", "Falkenauer_u250_17", "Falkenauer_u250_14", "Falkenauer_u250_08",
-//  "Falkenauer_u250_18", "Falkenauer_u250_06", "Falkenauer_u250_04", "Falkenauer_u250_15",
-//  "Falkenauer_u250_11", "Falkenauer_u250_10", "Falkenauer_u250_19", "Falkenauer_u250_12",
-//  "Falkenauer_u250_02", "Falkenauer_u250_07", "Falkenauer_u250_00", "Falkenauer_u500_13",
-//  "Falkenauer_u500_14", "Falkenauer_u500_18", "Falkenauer_u500_03", "Falkenauer_u500_15",
-//  "Falkenauer_u500_04", "Falkenauer_u500_08", "Falkenauer_u500_17", "Falkenauer_u500_16",
-//  "Falkenauer_u500_06", "Falkenauer_u500_01", "Falkenauer_u500_09", "Falkenauer_u500_12",
-//  "Falkenauer_u500_05", "Falkenauer_u500_10", "Falkenauer_u500_02", "Falkenauer_u500_19",
-//  "Falkenauer_u500_11", "Falkenauer_u500_00", "Falkenauer_u500_07"
-};
 
 
-vector<string> train_file{
+
+std::string dataset_input_dir = "../train_data/binpacking_data";
+std::string easy_test_dir = "../test_data/easy_test_data/";
+std::string hard_test_dir = "../test_data/hard_test_data/";
+
+vector<string> train_file_name;
+vector<string> easy_test_file_name;
+vector<string> hard_test_file_name;
 
 
-    "Falkenauer_t60_00" , "Falkenauer_t60_01" , "Falkenauer_t60_02", "Falkenauer_t60_03", "Falkenauer_t60_04", 
-    "Falkenauer_t60_05", "Falkenauer_t60_06", "Falkenauer_t60_07", "Falkenauer_t60_08", "Falkenauer_t60_09",
-    "Falkenauer_u120_00", "Falkenauer_u120_01", "Falkenauer_u120_02", "Falkenauer_u120_03", "Falkenauer_u120_04", 
-    "Falkenauer_u120_05", "Falkenauer_u120_06", "Falkenauer_u120_07", "Falkenauer_u120_08", "Falkenauer_u120_09"
-    //  "Falkenauer_t60_10" , "Falkenauer_t60_11" , "Falkenauer_t60_12", "Falkenauer_t60_13", "Falkenauer_t60_14", 
-    // "Falkenauer_t60_15", "Falkenauer_t60_16", "Falkenauer_t60_17", "Falkenauer_t60_18", "Falkenauer_t60_19",
-    };
+void get_train_file_name(){   
+    for (const auto & entry : std::filesystem::directory_iterator(dataset_input_dir)){
+        const auto filenameStr = entry.path().filename().string();
+        train_file_name.push_back(filenameStr.substr(0, filenameStr.size() - 4));
+    }
+}
+
+void get_easytest_file_name(){
+    for (const auto & entry : std::filesystem::directory_iterator(easy_test_dir)){
+        const auto filenameStr = entry.path().filename().string();
+        if (filenameStr.find("Schwerin") != std::string::npos ){
+            easy_test_file_name.push_back(filenameStr.substr(0, filenameStr.size() - 4));
+        }
+    }
+}
+
+
+
+void get_hardtest_file_name(){
+    for (const auto & entry : std::filesystem::directory_iterator(hard_test_dir)){
+        const auto filenameStr = entry.path().filename().string();
+        hard_test_file_name.push_back(filenameStr.substr(0, filenameStr.size() - 4));
+        cout << filenameStr << endl;
+    }
+}
+
+
 
 
 
 void train_svm(){
 
-    const string dataset_input_dir = "../binpacking_train/";
-    const string conflict_input_dir = "../Falkenauer_conflict/0.6_seed_1/";
-    auto training = Training(train_file, dataset_input_dir, conflict_input_dir, 1, 0);  // linear kernel type
+    const string dataset_input_dir = "../train_data/binpacking_data/";
+    const string conflict_input_dir = "../train_data/conflict_data/0.6_seed_1/";
+    
+    cout << dataset_input_dir << endl;
+    cout << conflict_input_dir << endl;
+
+    get_train_file_name();
+    auto training = Training(train_file_name, dataset_input_dir, conflict_input_dir, 1, 0);  // linear kernel type
     training.generate_training_model_svm();
 }
 
 
+
 void test(int method, string density, int column_selection, int seed, string output_dir){
 
-    for (int i = 0; i < file_name.size(); ++i){
-        const string dataset_input_dir = "../Falkenauer/";
-        cout << density << endl;
-        const string conflict_input_dir = "../Falkenauer_conflict/" + density + "_seed_1/";
-        string input_file_name = file_name[i];
-        cout << input_file_name << endl;
+    for (int i = 0; i < hard_test_file_name.size(); ++i){
 
+        const string dataset_input_dir = "../test_data/hard_test_data/";
+        cout << density << endl;
+        const string conflict_input_dir = "../test_data/hard_conflict_data/" + density + "_seed_1/";
+        string input_file_name = hard_test_file_name[i];
+        cout << input_file_name << endl;
+        
         // read the test file into Instance object
         const auto instance = Instance(input_file_name, dataset_input_dir, conflict_input_dir, false);
         
@@ -104,6 +105,7 @@ void test(int method, string density, int column_selection, int seed, string out
         output_solving_filename = output_dir + input_file_name + "_solving_stats.csv";
         ofstream output_file_cg_stats (output_cg_filename);
         ofstream output_file_solving_stats (output_solving_filename);
+        
 
         if (output_file_cg_stats.is_open()){
                 output_file_cg_stats <<"ith_CG_iter,current_time,lp_obj,nnrc_cols,min_rc,mean_rc,median_rc,stdev_rc,Lagrangian_bound\n";
@@ -112,7 +114,7 @@ void test(int method, string density, int column_selection, int seed, string out
                 cout << "Cannot open the output file " + output_cg_filename << endl;}
 
         if (output_file_solving_stats.is_open()){
-            output_file_solving_stats << "optimality,lp_obj,tot_time,tot_cpu_time,master_duration,heur_pricing_duration,exact_pricing_duration,#CG_iter,#added_columns,#heur_success" << endl;
+            output_file_solving_stats << "nitems,capacity,optimality,lp_obj,tot_time,tot_cpu_time,master_duration,heur_pricing_duration,exact_pricing_duration,#CG_iter,#added_columns,#heur_success" << endl;
             } else{
                 cout << "Cannot open the output file " + output_solving_filename << endl;
         }
@@ -149,7 +151,7 @@ void test(int method, string density, int column_selection, int seed, string out
 
         cout << "WALL/CPU TOTAL TIME: " << wall_time_cg << ", " << cpu_time_cg << "\n";  
 
-        output_file_solving_stats << cg.lp_optimal << ","  << cg.lp_bound << ","
+        output_file_solving_stats << instance.nitems << "," << instance.capacity << "," << cg.lp_optimal << ","  << cg.lp_bound << ","
                     << wall_time_cg << "," << cpu_time_cg << "," << cg.time_duration_master << ","
                     << cg.time_duration_pricing_heur <<"," << cg.time_duration_pricing_exact << ","
                     << cg.cg_iters << "," << cg.num_pattern - instance.nitems*1 << "," 
@@ -164,8 +166,9 @@ void test(int method, string density, int column_selection, int seed, string out
         output_file_cg_stats.close();
         output_file_solving_stats.close();
 
-    }
 
+    }
+    
 
 }
 
@@ -176,8 +179,6 @@ int main(int argc, char* argv[]) {
 
 
     int mode = stoi(argv[1]);
-
-
     if (mode == 0){
         train_svm();
     }
@@ -186,7 +187,16 @@ int main(int argc, char* argv[]) {
         string output_dir, seed, density;
         seed = argv[2];
         density = argv[3];
-        output_dir = "../results/";
+        bool iseasy = stoi(argv[4]);
+        if (iseasy){
+            output_dir = "../easy_result/";
+            get_easytest_file_name();
+        }
+        else if (!iseasy){
+            output_dir = "../hard_result/";
+            get_hardtest_file_name();
+        }
+
         int column_selection = 0;
 
         if (method == 1){
@@ -198,26 +208,12 @@ int main(int argc, char* argv[]) {
         else if (method == 3){
             output_dir += "aco/density_" + density + "/seed_" + seed + "/";
         }
-
-        
+        // cout << output_dir << endl;
         boost::filesystem::create_directories(output_dir);
+        // cout << hard_test_file_name.size() << endl;
         test(method, density, column_selection, stoi(seed), output_dir);
     }
 
    
-    // vector<vector<double>> obj_coef;
-    // vector<vector<bool>> solution;    
-
-
-    // cg.collect_training_data(obj_coef, solution);
-    
-
-    // for (int i = 0; i < inst.nitems; i++){
-    //     for (int j = 0; j < inst.adj_list[i].size(); j++){
-    //         cout << inst.adj_list[i][j] << " ,";
-    //     }
-    //     cout << endl;
-    // }
-
 
 }   

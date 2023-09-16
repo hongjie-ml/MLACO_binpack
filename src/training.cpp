@@ -29,7 +29,7 @@ namespace Bin{
         std::uint64_t num1 = 0;
 
         for (auto d = 0; d < training_files.size(); ++d){
-            auto bin = Instance(training_files[d], dataset_input_dir, conflict_input_dir, true);
+            auto bin = Instance(training_files[d], dataset_input_dir, conflict_input_dir, false);
             auto n = bin.nitems;
 
 

@@ -475,7 +475,7 @@ namespace Bin{
                 
                 pricer->include_new_cols_all(pattern_set);
                 num_pattern = pattern_set.size();
-
+                lg_bound = lp_bound + pricer->best_rc;
             }
             else{
                 num_ml_sampling_fail++;
@@ -498,7 +498,7 @@ namespace Bin{
                     num_pattern = pattern_set.size();
 
                 }
-
+                lg_bound = lp_bound + min_reduced_cost_exact;
 
 
                 // **** Original method ****
@@ -527,7 +527,7 @@ namespace Bin{
                 time_duration_pricing_heur += duration;
             }
 
-            lg_bound = lp_bound + pricer->best_rc;
+            
 
             if (output_file_cg_stats!=nullptr){
                 (*output_file_cg_stats) << pricer->num_neg_rc_col << ","

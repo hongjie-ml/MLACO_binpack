@@ -43,6 +43,7 @@ namespace Bin{
 
 
         num_neg_rc_col = neg_rc_vals.size();
+        cout << num_neg_rc_col << endl;
         if (num_neg_rc_col == 0){
             best_rc = 0.; mean_rc=0.; median_rc=0.; stdev_rc=0.;
         }else{

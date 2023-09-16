@@ -2,8 +2,8 @@ import sys, os
 import numpy as np
 
 def dual_to_primal():
-    dual_path = 'train_data/svm_train_model'
-    primal_path = 'svm.param'
+    dual_path = './train_data/svm_train_model'
+    primal_path = './train_data/svm.param'
 
     with open(dual_path, 'r') as f:
         lines = f.readlines()
@@ -13,7 +13,7 @@ def dual_to_primal():
     b = -float(lines[4].split(' ')[1])
     svs = lines[8:]
     assert(len(svs) == nsv)
-    w = np.zeros(4, dtype=float)
+    w = np.zeros(5, dtype=float)
     for sv in svs:
         tokens = sv.split(' ')
         coef = float(tokens[0])
@@ -27,7 +27,7 @@ def dual_to_primal():
         f.write(f"{b}\n")
 
 def train_svm_linear():
-    os.system(f'cd ./build/ && ./Binpack')
+    os.system(f'cd ./build/ && ./Binpack 0')
     dual_to_primal()
 
 
