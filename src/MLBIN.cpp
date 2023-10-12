@@ -21,12 +21,10 @@ namespace Bin {
         nitems = _n;
         sample_size=_sample_size;
         upper_col_limit = _upper_col_limit;
-        niterations = 1;
+        niterations = 10;
         best_rc_current_iteration = vector<double>(niterations);
         num_neg_rc_current_iteration = vector<long>(niterations);
         heur_best_reduced_cost = 1;
-
-
 
         max_dual = 0.;
 
@@ -83,8 +81,8 @@ namespace Bin {
             c2 = std::stod(line);
             getline(svm_param_file, line);
             c3 = std::stod(line);
-            // getline(svm_param_file, line);
-            // c4 = std::stod(line);
+            getline(svm_param_file, line);
+            c4 = std::stod(line);
             // getline(svm_param_file, line);
             // c5 = std::stod(line);
             // getline(svm_param_file, line);
@@ -301,27 +299,6 @@ namespace Bin {
         if (max_cbm == 0) max_cbm == 1;
         
         for (int i = 0; i < nitems; ++i){
-            // int adjacent_item_min_weight;
-            // int adjacent_item_max_weight;
-
-            // if (adj_list[i].size() != 0){
-
-            //     adjacent_item_min_weight = weight[adj_list[i][0]];
-            //     adjacent_item_max_weight = weight[adj_list[i][0]];
-                
-            //     for (int j = 0; j < adj_list[i].size(); j++){
-            //         if (weight[adj_list[i][j]] < adjacent_item_min_weight){
-            //             adjacent_item_min_weight = weight[adj_list[i][j]];
-            //         }
-            //         if (weight[adj_list[i][j]] > adjacent_item_max_weight){
-            //             adjacent_item_max_weight = weight[adj_list[i][j]];
-            //         }
-            //     }
-            // }
-            // else{
-            //     adjacent_item_min_weight = 0;
-            //     adjacent_item_max_weight = 0;
-            // }
 
 
             projection =
@@ -330,9 +307,6 @@ namespace Bin {
             c2 * corr_xy[i]/max_cbm +
             c3 * ranking_scores[i]/max_rbm +
             c4 * degree_norm[i] + b;
-            // c5 * adjacent_item_min_weight/(float)capacity +
-            // c6 * adjacent_item_max_weight/(float)capacity + b;
-
 
             predicted_value[i] = 1.0/(1 + exp(-projection));
 

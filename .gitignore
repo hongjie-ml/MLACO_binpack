@@ -18,3 +18,7 @@ hard_result/
 
 #ignore trained model file
 svm.param
+
+
+#ignore exp record
+exp_record/
