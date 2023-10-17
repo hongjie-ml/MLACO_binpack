@@ -30,18 +30,17 @@ namespace Bin{
         int capacity;
         int nitems;
         vector<int> weight;
-
+        int method_type;
         vector<int> optimal_pattern;
         bool isOptimal=false;
         double best_obj;
-        explicit knapsack_solver(int method, double _cutoff, const vector<double>& _dual_values, 
+        explicit knapsack_solver(int method, int method_type, double _cutoff, const vector<double>& _dual_values, 
             int capacity, const vector<int>& _weight, int _nitems, 
             std::vector<std::vector<bool>> _adj_matrix, std::vector<std::vector<int>> _adj_list, long long _upper_col_limit);
 
 
         // void solve_knapsack_dp();
         void solve_knapsackGraph_gurobi();
-        void solve_knapsackGraph_ACO();
         
         // MLBIN
         

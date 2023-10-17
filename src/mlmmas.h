@@ -31,6 +31,7 @@ namespace Bin{
         double delta = 0.5;
         vector<int> best_sample;
         int method;
+        int method_type;
         int nitems;
         int capacity;
         vector<int> weight;
@@ -59,7 +60,7 @@ namespace Bin{
             vector<float> ranking_scores;
             const vector<double> degree_norm;
             // Builds a solver for graph g.
-        MLMMAS(int _method, double _cutoff, int _n, int _nitems, int _sample_size, vector<int> weight, int capacity,
+        MLMMAS(int _method, int _method_type, double _cutoff, int _n, int _nitems, int _sample_size, vector<int> weight, int capacity,
                 const vector<double>& _dual_values, const vector<double>& _degree_norm, const vector<vector<bool>>& _adj_matrix, const vector<vector<int>>& _adj_list,
                 int _upper_col_limit);
 

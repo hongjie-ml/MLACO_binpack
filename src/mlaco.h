@@ -29,8 +29,9 @@ namespace Bin{
         double gamma = 0.5;
         double best_obj=0.;
 
-        
+        int seed;
         int method;
+        int method_type;
         int nitems;
         int capacity;
         vector<int> weight;
@@ -39,6 +40,7 @@ namespace Bin{
         const vector<vector<bool>> adj_matrix;
 
         vector<vector<int>> pattern_set;
+        vector<vector<int>> sample_set;
         vector<float> tau;
         vector<float> eta;
         vector<int> best_sample;
@@ -55,7 +57,7 @@ namespace Bin{
             vector<float> ranking_scores;
             const vector<double> degree_norm;
             // Builds a solver for graph g.
-        MLACO(int _method, double _cutoff, int _n, int _nitems, int _sample_size, vector<int> weight, int capacity,
+        MLACO(int _method, int _method_type , int seed, double _cutoff, int _n, int _nitems, int _sample_size, vector<int> weight, int capacity,
                 const vector<double>& _dual_values, const vector<double>& _degree_norm, const vector<vector<bool>>& _adj_matrix, const vector<vector<int>>& _adj_list,
                 int _upper_col_limit);
         void make_prediction(int ith_iteration);

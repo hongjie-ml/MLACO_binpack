@@ -14,18 +14,18 @@ using std::vector;
 namespace Bin
 {
 
-    ACO::ACO(int _method, double _cutoff, int _n, int _nitems, int _sample_size,
+    ACO::ACO(int _method, int _method_type, double _cutoff, int _n, int _nitems, int _sample_size,
              vector<int> _weight, int _capacity, const vector<double> &_dual_values,
              const vector<vector<bool>> &_adj_matrix, const vector<vector<int>> &_adj_list, int _upper_col_limit) : nitems{_nitems}, adj_list{_adj_list}, adj_matrix{_adj_matrix}
     {
         dual_values = _dual_values;
         method = _method;
+        method_type = _method_type;
         capacity = _capacity;
         weight = _weight;
         sample_size = _sample_size;
         upper_col_limit = _upper_col_limit;
         niterations = 10;
-        // cout << "ACO starting.. iteration:" << niterations << endl;
         best_rc_current_iteration = vector<double>(niterations);
         num_neg_rc_current_iteration = vector<long>(niterations);
         heur_best_reduced_cost = 1;
@@ -37,22 +37,43 @@ namespace Bin
         start_time = get_wall_time();
         objs = vector<double>(sample_size);
         pattern_set = vector<vector<int>>(sample_size);
+        long time_seed = current_time_for_seeding();
+        mt19937 mt(time_seed);
+        uniform_int_distribution<int> dist(0, 1);
         tau = vector<float>(nitems, 1.);
         eta = vector<float>(nitems, 0);
 
-        // for (auto i = 0; i < nitems; i++)
-        //     tau[i] += dual_values[i];
-
-        for (auto k = 0; k < nitems; k++)
+        if (method_type == 0)
         {
-            eta[k] = dual_values[k] / weight[k];
+            for (auto k = 0; k < nitems; k++)
+            {
+                eta[k] = dual_values[k] / weight[k];
+                tau[k] = dist(mt);
+            }
+
+        }
+        else if (method_type == 1)
+        {
+            for (auto k = 0; k < nitems; k++)
+            {
+                tau[k] = dual_values[k] / weight[k];
+                eta[k] = dist(mt);
+            }   
+        }
+        else if (method_type == 2)
+        {
+            for (auto k = 0; k < nitems; k++)
+            {
+                tau[k] = dual_values[k] / weight[k];
+                eta[k] = dual_values[k] / weight[k];
+            }   
         }
 
         for (auto i = 0; i < niterations; ++i)
         {
 
             this->run_iteration(i);
-   
+
             num_neg_rc_col = 0;
             for (auto idx = 0; idx < sample_size; idx++)
             {
@@ -90,7 +111,6 @@ namespace Bin
     void ACO::run_iteration(int ith_iteration)
     {
 
-        
         long time_seed = current_time_for_seeding();
         vector<double> delta_tau(nitems, 0.0);
 
@@ -130,12 +150,11 @@ namespace Bin
                     sum = 0.;
                     for (int i = 0; i < nb_candidates; ++i)
                     {
-                        
+
                         // sum += pow(tau[candidates[i]], alpha);
                         sum += pow(tau[candidates[i]], alpha) * pow(eta[candidates[i]], beta);
-                        
                     }
-                    
+
                     if (sum < 1e-8)
                     {
                         for (int i = 0; i < nitems; ++i)
@@ -145,7 +164,7 @@ namespace Bin
                     }
                     else
                     {
-                        
+
                         for (int i = 0; i < nitems; ++i)
                         {
 

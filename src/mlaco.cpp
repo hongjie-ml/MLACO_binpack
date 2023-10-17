@@ -14,18 +14,22 @@ using std::vector;
 namespace Bin
 {
 
-    MLACO::MLACO(int _method, double _cutoff, int _n, int _nitems, int _sample_size,
+    MLACO::MLACO(int _method, int _method_type, int _seed, double _cutoff, int _n, int _nitems, int _sample_size,
                  vector<int> _weight, int _capacity, const vector<double> &_dual_values, const vector<double> &_degree_norm,
                  const vector<vector<bool>> &_adj_matrix, const vector<vector<int>> &_adj_list, int _upper_col_limit) : degree_norm{_degree_norm}, nitems{_nitems}, adj_list{_adj_list}, adj_matrix{_adj_matrix}
     {
         dual_values = _dual_values;
         method = _method;
+        method_type = _method_type;
+        seed = _seed;
+        cutoff = _cutoff;
         capacity = _capacity;
         weight = _weight;
         sample_size = _sample_size;
         upper_col_limit = _upper_col_limit;
         niterations = 10;
-        // cout << "ACO starting.. iteration:" << niterations << endl;
+        cout << "ACO starting.. iteration:" << niterations << endl;
+
         best_rc_current_iteration = vector<double>(niterations);
         num_neg_rc_current_iteration = vector<long>(niterations);
         heur_best_reduced_cost = 1;
@@ -49,7 +53,8 @@ namespace Bin
             getline(svm_param_file, line);
             b = std::stod(line);
             svm_param_file.close();
-            cout << c0 << " " << c1 << " " << c2 << " " << c3 << " " << c4 << " " << b;
+            cout << c0 << " " << c1 << " " << c2 << " " << c3 << " " << c4 << " " << b << endl;
+            ;
         }
 
         max_dual = 0.;
@@ -60,6 +65,7 @@ namespace Bin
                 max_dual = dual_values[i];
             }
         }
+        identites = std::set<std::string>();
     }
 
     void MLACO::make_prediction(int ith_iteration)
@@ -74,7 +80,7 @@ namespace Bin
         float min_cbm, max_cbm;
         float min_rbm, max_rbm;
         if (max_cbm == 0)
-            max_cbm == 1;
+            max_cbm = 1;
 
         for (int i = 0; i < nitems; ++i)
         {
@@ -94,7 +100,7 @@ namespace Bin
     {
 
         objs = vector<double>(sample_size);
-        pattern_set = vector<vector<int>>(sample_size);
+        sample_set = vector<vector<int>>(sample_size);
         long time_seed = current_time_for_seeding();
         mt19937 mt(time_seed);
         uniform_int_distribution<int> dist(0, RAND_MAX);
@@ -126,7 +132,7 @@ namespace Bin
                 item = candidates[idx]; // item number_id
                 // cout << "dual value _size:" << dual_values.size() <<endl;
                 // cout << "item_id:" << item << endl;
-                pattern_set[i].push_back(item);
+                sample_set[i].push_back(item);
                 objs[i] += dual_values[item]; // number_id is the item idx in dual_values
                 // cout << "dual values:" <<dual_values[item] << endl;
                 aggregated_weight += weight[item];
@@ -134,7 +140,7 @@ namespace Bin
                 num = 0;
                 for (int j = 0; j < nb_candidates; ++j)
                 {
-                    if (remaining_capacity > weight[candidates[j]] && j != idx && adj_matrix[item][candidates[j]] == 1)
+                    if (remaining_capacity > weight[candidates[j]] && j != idx && adj_matrix[item][candidates[j]] == 0)
                     {
                         candidates[num] = candidates[j];
                         num++;
@@ -143,22 +149,18 @@ namespace Bin
                 nb_candidates = num;
             }
 
-            std::sort(pattern_set[i].begin(), pattern_set[i].end());
-            std::stringstream ss;
-            for (int k = 0; k < pattern_set[i].size(); ++k)
-            {
-                ss << pattern_set[i][k] << " ";
-            }
-            std::string identity = ss.str();
-            if (identites.find(identity) == identites.end())
-            {
-                if (1 - objs[i] < 0.000001)
-                {
-                    neg_rc_cols.push_back(pattern_set[i]);
-                    neg_rc_vals.push_back(1 - objs[i]);
-                }
-                identites.insert(identity);
-            }
+            std::sort(sample_set[i].begin(), sample_set[i].end());
+
+            // std::stringstream ss;
+            // for (int k = 0; k < pattern_set[i].size(); ++k)
+            // {
+            //     ss << pattern_set[i][k] << " ";
+            // }
+            // std::string identity = ss.str();
+            // if (identites.find(identity) == identites.end())
+            // {
+            //     identites.insert(identity);
+            // }
         }
     }
 
@@ -168,47 +170,70 @@ namespace Bin
         start_time = get_wall_time();
         objs = vector<double>(sample_size);
         pattern_set = vector<vector<int>>(sample_size);
-        // initialize eta as heuristic dual/weight
-        // vector<double> eta(nitems, 0);
-        // for (auto k = 0; k < nitems; k++)
-        // {
-        //     eta[k] = dual_values[k]/weight[k];
-        // }
-        eta = vector<float>(nitems, 1.);
-        
-          
 
+        if (method_type == 0)
+        {
+        }
+        else if (method_type == 1)
+        {
+            eta = vector<float>(nitems, 1.);
+        }
+        else if (method_type == 2)
+        {
+        }
+        else if (method_type == 3)
+        {
+            eta = vector<float>(nitems, 1.);
+            for (auto k = 0; k < nitems; k++)
+            {
+                eta[k] = dual_values[k] / weight[k];
+            }
+        }
 
         random_sampling();
+
         for (auto i = 0; i < niterations; ++i)
         {
             if (i == 0)
             {
                 this->make_prediction(i);
-                // initialize tau 
-                // tau = vector<float>(nitems, 1.);
-                tau = predicted_value;
-
-                
-                // initialize eta as predicted probability  
-                // eta = predicted_value;
-
+                if (method_type == 0)
+                {
+                    eta = predicted_value;
+                    tau = vector<float>(nitems, 1.);
+                }
+                else if (method_type == 1)
+                {
+                    tau = predicted_value;
+                }
+                else if (method_type == 2)
+                {
+                    eta = predicted_value;
+                    tau = predicted_value;
+                }
+                else if (method_type == 3)
+                {
+                    tau = predicted_value;
+                }
             }
+
             
             this->run_iteration(i);
-
-            num_neg_rc_col = 0;
+            // cout << "number of iter" << i << " done " << endl;
+            // cout << sample_size << endl;
+            int num_neg_rc_col_iter = 0;
             for (auto idx = 0; idx < sample_size; idx++)
             {
                 if (1 - objs[idx] < -1e-6)
                 {
-                    num_neg_rc_col++;
+                    num_neg_rc_col_iter++;
                 }
             }
+
             best_rc_current_iteration[i] = heur_best_reduced_cost;
-            num_neg_rc_current_iteration[i] = num_neg_rc_col;
-            if (get_wall_time() - start_time > cutoff)
-                break;
+            num_neg_rc_current_iteration[i] = num_neg_rc_col_iter;
+            // if (get_wall_time() - start_time > cutoff)
+            //     break;
 
             // update dynamic parameters
             if (i < 100)
@@ -232,10 +257,12 @@ namespace Bin
 
     void MLACO::run_iteration(int ith_iteration)
     {
-        long time_seed = current_time_for_seeding();
+
+        // cout << "run iteration: " << ith_iteration << endl;
+        // cout << "sample size " << sample_size << endl;
         vector<double> delta_tau(nitems, 0.0);
 
-        mt19937 mt(time_seed);
+        mt19937 mt(seed);
         uniform_real_distribution<> dist(0., 1.);
         std::vector<double> distribution(nitems, 0);
         int aggregated_weight;
@@ -244,6 +271,7 @@ namespace Bin
         {
             if (get_wall_time() - start_time > cutoff)
             {
+                cout << cutoff  << endl;
                 idx = sample_size;
                 continue;
             }
@@ -297,7 +325,6 @@ namespace Bin
                             break;
                     }
                     sel_idx = (j == nb_candidates) ? 0 : j;
-                    // cout << "sel idx" << sel_idx << endl;
                 }
 
                 auto sel_item = candidates[sel_idx];
@@ -311,7 +338,7 @@ namespace Bin
 
                 for (int j = 0; j < nb_candidates; ++j)
                 {
-                    if (remaining_capacity > weight[candidates[j]] && j != sel_idx && adj_matrix[sel_item][candidates[j]] == 1)
+                    if (remaining_capacity > weight[candidates[j]] && j != sel_idx && adj_matrix[sel_item][candidates[j]] == 0)
                     {
                         candidates[num] = candidates[j];
                         num++;
@@ -321,8 +348,11 @@ namespace Bin
             }
 
             objs[idx] = obj;
+            cout <<" obj:" << obj << endl;
             pattern_set[idx].resize(sample.size());
             std::copy(sample.begin(), sample.end(), pattern_set[idx].begin());
+            
+
             if (1 - obj < -1e-9)
             {
                 std::sort(sample.begin(), sample.end());
@@ -343,7 +373,7 @@ namespace Bin
                 }
             }
 
-            if (best_obj < obj)
+            if (best_obj > obj)
             {
                 best_obj = obj;
                 best_sample = sample;
@@ -366,6 +396,7 @@ namespace Bin
             }
         }
 
+
         for (auto k = 0; k < nitems; ++k)
         {
             tau[k] = rho * tau[k] + delta_tau[k];
@@ -387,14 +418,24 @@ namespace Bin
             rank[sort_idx[i]] = i;
         }
 
+        // cout << "sample_set" << endl;
+        // for (auto i = 0; i < sample_set.size(); ++i)
+        // {
+        //     for (auto j = 0; j < sample_set[i].size(); ++j)
+        //     {
+        //         cout << sample_set[i][j] << " ";
+        //     }
+        //     cout << endl;
+        // }
+
         std::vector<int> sampling_count(nitems, 0);
         ranking_scores = std::vector<float>(sample_size, 0);
         for (auto i = 0; i < sample_size; ++i)
         {
-            for (auto j = 0; j < pattern_set[i].size(); ++j)
+            for (auto j = 0; j < sample_set[i].size(); ++j)
             {
-                sampling_count[pattern_set[i][j]]++;
-                ranking_scores[pattern_set[i][j]] += 1.0 / (rank[i] + 1);
+                sampling_count[sample_set[i][j]]++;
+                ranking_scores[sample_set[i][j]] += 1.0 / (rank[i] + 1);
             }
         }
 
@@ -422,6 +463,7 @@ namespace Bin
         {
             sum_y += objs[i];
         }
+        // cout << "sum_y: " << sum_y <<  endl;
         float mean_y = sum_y / sample_size;
 
         vector<double> diff_y;
@@ -440,10 +482,10 @@ namespace Bin
 
         for (auto i = 0; i < sample_size; ++i)
         {
-            for (auto j = 0; j < pattern_set[i].size(); ++j)
+            for (auto j = 0; j < sample_set[i].size(); ++j)
             {
-                mean_x[pattern_set[i][j]] += 1.0 / sample_size;
-                S1[pattern_set[i][j]] += diff_y[i];
+                mean_x[sample_set[i][j]] += 1.0 / sample_size;
+                S1[sample_set[i][j]] += diff_y[i];
             }
         }
 
@@ -467,8 +509,6 @@ namespace Bin
             }
             if (variance_x[i] > 0)
             {
-                // cout << "variance_x:" << variance_x[i]<< endl;
-                // cout << "variance_y:" << variance_y << endl;
 
                 auto tmp = variance_x[i] * variance_y;
                 if (tmp > 0)

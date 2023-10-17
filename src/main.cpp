@@ -83,7 +83,7 @@ void train_svm()
     training.generate_training_model_svm();
 }
 
-void test(int method, string density, int column_selection, int seed, string output_dir)
+void test(int method, int method_type, string density, int column_selection, int seed, string output_dir)
 {
 
     for (int i = 0; i < hard_test_file_name.size(); ++i)
@@ -153,7 +153,7 @@ void test(int method, string density, int column_selection, int seed, string out
         auto w0 = get_wall_time();
         auto c0 = get_cpu_time();
 
-        cg.test(method, output_file_sampling_stats_ptr, &output_file_cg_stats);
+        cg.test(method, method_type, output_file_sampling_stats_ptr, &output_file_cg_stats);
 
         auto wall_time_cg = get_wall_time() - w0;
         auto cpu_time_cg = get_cpu_time() - c0;
@@ -190,9 +190,10 @@ int main(int argc, char *argv[])
     {
         int method = mode;
         string output_dir, seed, density;
-        seed = argv[2];
-        density = argv[3];
-        bool iseasy = stoi(argv[4]);
+        int method_type = stoi(argv[2]);
+        seed = argv[3];
+        density = argv[4];
+        bool iseasy = stoi(argv[5]);
         if (iseasy)
         {
             output_dir = "../easy_result/";
@@ -201,36 +202,98 @@ int main(int argc, char *argv[])
         else if (!iseasy)
         {
             output_dir = "../hard_result/";
-            // get_hardtest_file_name();
-            hard_test_file_name = {"Falkenauer_u1000_16"};
+            get_hardtest_file_name();
+            // hard_test_file_name = {"Falkenauer_u1000_16"};
         }
 
         int column_selection = 0;
 
         if (method == 1)
         {
-            output_dir += "gurobi/density_" + density + "/seed_" + seed + "/";
+            if (method_type == 0)
+            {
+                string method_type_str = "predicted_eta";
+                output_dir += "mlaco/" + method_type_str + "/density_" + density + "/seed_" + seed + "/";
+            }
+            else if (method_type = 1)
+            {
+                string method_type_str = "predicted_tau";
+                output_dir += "mlaco/" + method_type_str + "/density_" + density + "/seed_" + seed + "/";
+            }
+            else if (method_type = 2)
+            {
+                string method_type_str = "predicted_both";
+                output_dir += "mlaco/" + method_type_str + "/density_" + density + "/seed_" + seed + "/";
+            }
+            else if (method_type = 3)
+            {
+                string method_type_str = "heta_ptau";
+                output_dir += "mlaco/" + method_type_str + "/density_" + density + "/seed_" + seed + "/";
+            }
         }
         else if (method == 2)
         {
-            output_dir += "mlbin/density_" + density + "/seed_" + seed + "/";
+            if (method_type == 0)
+            {
+                string method_type_str = "predicted_eta";
+                output_dir += "mlmmas/" + method_type_str + "/density_" + density + "/seed_" + seed + "/";
+            }
+            else if (method_type = 1)
+            {
+                string method_type_str = "predicted_tau";
+                output_dir += "mlmmas/" + method_type_str + "/density_" + density + "/seed_" + seed + "/";
+            }
+            else if (method_type = 2)
+            {
+                string method_type_str = "predicted_both";
+                output_dir += "mlmmas/" + method_type_str + "/density_" + density + "/seed_" + seed + "/";
+            }
+            else if (method_type = 3)
+            {
+                string method_type_str = "heta_ptau";
+                output_dir += "mlmmas/" + method_type_str + "/density_" + density + "/seed_" + seed + "/";
+            }
         }
         else if (method == 3)
         {
-            output_dir += "aco/density_" + density + "/seed_" + seed + "/";
+            if (method_type == 0)
+            {
+                string method_type_str = "gurobi_exact";
+                output_dir += "gurobi/" + method_type_str + "/density_" + density + "/seed_" + seed + "/";
+            }
+            else if (method_type = 1)
+            {
+                string method_type_str = "gurobi_heuristic";
+                output_dir += "gurobi/" + method_type_str + "/density_" + density + "/seed_" + seed + "/";
+            }
+            
         }
         else if (method == 4)
         {
-            output_dir += "mlaco/density_" + density + "/seed_" + seed + "/";
+            if (method_type == 0)
+            {
+                string method_type_str = "heursitic_eta";
+                output_dir += "aco/" + method_type_str + "/density_" + density + "/seed_" + seed + "/";
+            }
+            if (method_type == 1)
+            {
+                string method_type_str = "heursitic_tau";
+                output_dir += "aco/" + method_type_str + "/density_" + density + "/seed_" + seed + "/";
+            }
+            if (method_type == 2)
+            {
+                string method_type_str = "heursitic_both";
+                output_dir += "aco/" + method_type_str + "/density_" + density + "/seed_" + seed + "/";
+            }
         }
         else if (method == 5)
         {
-            output_dir += "mlmmas/density_" + density + "/seed_" + seed + "/";
+            output_dir += "mlbin/density_" + density + "/seed_" + seed + "/";
         }
 
         // cout << output_dir << endl;
         boost::filesystem::create_directories(output_dir);
         // cout << hard_test_file_name.size() << endl;
-        test(method, density, column_selection, stoi(seed), output_dir);
+        test(method, method_type, density, column_selection, stoi(seed), output_dir);
     }
 }

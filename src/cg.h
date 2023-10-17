@@ -47,6 +47,7 @@ namespace Bin{
         
     public:
         int seed;
+        int k;
         vector<int> optimal_pattern;
         int num_pattern = 0;
         double lp_bound = 0.0;
@@ -80,7 +81,7 @@ namespace Bin{
 
 
         void collect_training_data(vector<vector<double>>& obj_coef, vector<vector<bool>>& solution);
-        void test(int method, std::ofstream* output_file_sampling_stats, std::ofstream* output_file_cg_stats);
+        void test(int method, int method_type, std::ofstream* output_file_sampling_stats, std::ofstream* output_file_cg_stats);
 
 
         bool solve_knapsack_dp(double cutoff, double& min_reduced_cost);

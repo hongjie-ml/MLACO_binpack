@@ -5,7 +5,7 @@
             "includePath": [
                 "/usr/include/**",
                 "${workspaceFolder}/**",
-                "/opt/gurobi1002/linux64/include/**",
+                "/opt/gurobi1001/linux64/include/**",
                 "/usr/local/include/**"
 
             ],

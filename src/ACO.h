@@ -32,6 +32,7 @@ namespace Bin
         double best_obj = 0.;
 
         int method;
+        int method_type;
         int nitems;
         int capacity;
         vector<int> weight;
@@ -51,7 +52,7 @@ namespace Bin
         vector<double> objs;
 
         // Builds a solver for graph g.
-        ACO(int _method, double _cutoff, int _n, int _nitems, int _sample_size, vector<int> weight, int capacity,
+        ACO(int _method, int _method_type, double _cutoff, int _n, int _nitems, int _sample_size, vector<int> weight, int capacity,
             const vector<double> &_dual_values, const vector<vector<bool>> &_adj_matrix, const vector<vector<int>> &_adj_list,
             int _upper_col_limit);
         void run_iteration(int ith_iteration);

@@ -14,12 +14,13 @@ using std::vector;
 namespace Bin
 {
 
-    MLMMAS::MLMMAS(int _method, double _cutoff, int _n, int _nitems, int _sample_size,
+    MLMMAS::MLMMAS(int _method, int _method_type, double _cutoff, int _n, int _nitems, int _sample_size,
                    vector<int> _weight, int _capacity, const vector<double> &_dual_values, const vector<double> &_degree_norm,
                    const vector<vector<bool>> &_adj_matrix, const vector<vector<int>> &_adj_list, int _upper_col_limit) : degree_norm{_degree_norm}, nitems{_nitems}, adj_list{_adj_list}, adj_matrix{_adj_matrix}
     {
         dual_values = _dual_values;
         method = _method;
+        method_type = _method_type;
         capacity = _capacity;
         weight = _weight;
         sample_size = _sample_size;
@@ -169,18 +170,49 @@ namespace Bin
         objs = vector<double>(sample_size);
         pattern_set = vector<vector<int>>(sample_size);
         random_sampling();
-        // initialize eta
-        vector<double> eta(nitems, 0);
-        for (auto k = 0; k < nitems; k++)
+ 
+        if (method_type == 0)
         {
-            eta[k] = weight[k]/dual_values[k];
         }
+        else if (method_type == 1)
+        {
+            eta = vector<float>(nitems, 1.);
+        }
+        else if (method_type == 2)
+        {
+        }
+        else if (method_type == 3)
+        {
+            eta = vector<float>(nitems, 1.);
+            for (auto k = 0; k < nitems; k++)
+            {
+                eta[k] = dual_values[k] / weight[k];
+            }
+        }
+
         for (auto i = 0; i < niterations; ++i)
         {
             if (i == 0)
             {
                 this->make_prediction(i);
-                tau = predicted_value;
+                if (method_type == 0)
+                {
+                    eta = predicted_value;
+                    tau = vector<float>(nitems, 1.);
+                }
+                else if (method_type == 1)
+                {
+                    tau = predicted_value;
+                }
+                else if (method_type == 2)
+                {
+                    eta = predicted_value;
+                    tau = predicted_value;
+                }
+                else if (method_type == 3)
+                {
+                    tau = predicted_value;
+                }
             }
 
             this->run_iteration(i);

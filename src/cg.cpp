@@ -13,7 +13,6 @@
 #include "mlaco.h"
 #include "mlmmas.h"
 
-
 namespace Bin
 {
 
@@ -54,6 +53,17 @@ namespace Bin
                 adj_matrix[adj_list[i][j]][i] = 1;
             }
         }
+
+        // cout << "check pattern include in RMP " << endl;
+        // for (auto x=0; x < adj_matrix.size(); x++)
+        // {
+        //     for (auto y=0; y < adj_matrix[x].size(); y++)
+        //     {
+        //         cout << adj_matrix[x][y] << " ";
+        //     }
+        //     cout << endl;
+        // }
+
     }
 
     void CG::initializing_pattern()
@@ -91,7 +101,7 @@ namespace Bin
                 num = 0;
                 for (int j = 0; j < nb_candidates; ++j)
                 {
-                    if (remaining_capacity > weight[candidates[j]] && j != idx && adj_matrix[item][candidates[j]] == 1)
+                    if (remaining_capacity > weight[candidates[j]] && j != idx && adj_matrix[item][candidates[j]] == 0)
                     {
                         candidates[num] = candidates[j];
                         num++;
@@ -100,13 +110,6 @@ namespace Bin
                 nb_candidates = num;
             }
         }
-        // cout << "----" << endl;
-        // for (int i = 0; i < pattern_set.size(); ++i){
-        //     for (int j = 0; j < pattern_set[i].size(); ++j){
-        //         cout << pattern_set[i][j] << " ";
-        //     }
-        //     cout << endl;
-        // }
     }
 
     void CG::solve_restricted_master_problem()
@@ -138,7 +141,7 @@ namespace Bin
             GRBModel model = GRBModel(*env);
             // model.getEnv().set(GRB_IntParam_OutputFlag, 0);
             // model.set(GRB_IntParam_Threads, thread_limit);
-            model.set(GRB_StringAttr_ModelName, "RMP_GCP");
+            model.set(GRB_StringAttr_ModelName, "RMP_BIN");
 
             x.resize(num_pattern);
 
@@ -181,18 +184,19 @@ namespace Bin
                 dual_values[j] = orders[j].get(GRB_DoubleAttr_Pi);
             }
 
-            cout << "dual value in LP: " << dual_values[0] << endl;
+
 
             // int cols = model.get(GRB_IntAttr_NumVars);
 
-            long k = 0;
+            k = 0;
             lp_vbasis.resize(num_pattern);
             for (long i = 0; i < num_pattern; ++i)
             {
                 lp_vbasis[i] = x[i].get(GRB_IntAttr_VBasis);
                 k += (lp_vbasis[i] == 0);
             }
-            cout << endl;
+
+            cout << k << endl;
             cout << "lp solution # basic variables: " << k << "/" << lp_vbasis.size() << "\n";
 
             delete env;
@@ -204,12 +208,9 @@ namespace Bin
         }
     }
 
-    // no-adjacent vertices cannot be selected simultaneously
+    // adjacent vertices cannot be selected simultaneously
     bool CG::solve_knapsack_conflicted_gurobi(double cutoff, double &min_reduced_cost)
     {
-
-        // if (cutoff <=0 )
-        //     return false;
 
         cout << "Solving Pricing problem ... " << endl;
         try
@@ -229,12 +230,12 @@ namespace Bin
             }
             model.update();
 
-            // no-adjacent vertices cannot be selected simultaneously
+            // adjacent vertices cannot be selected simultaneously
             for (int i = 0; i < bin.nitems; ++i)
             {
                 for (int j = i + 1; j < bin.nitems; ++j)
                 {
-                    if (adj_matrix[i][j] == 0)
+                    if (adj_matrix[i][j] == 1 && i != j)
                     {
                         model.addConstr(x[i] + x[j] <= 1, " ");
                     }
@@ -288,18 +289,6 @@ namespace Bin
 
         cout << "kanpsack_conflict_optimal " << kanpsack_conflict_optimal << endl;
         return kanpsack_conflict_optimal;
-    }
-
-    bool CG::solve_knapsack_dp(double cutoff, double &min_reduced_cost)
-    {
-
-        // Bin::knapsack_solver dp(cutoff, dual_values, capacity, weight, bin.nitems, 1e8);
-        // dp.run();
-        // optimal_pattern=dp.optimal_pattern;
-        // min_reduced_cost =dp.exact_rc;
-
-        // return dp.isOptimal;
-        return false;
     }
 
     void CG::collect_training_data(vector<vector<double>> &obj_coef, vector<vector<bool>> &solution)
@@ -365,7 +354,7 @@ namespace Bin
             {
                 for (int j = i + 1; j < bin.nitems; ++j)
                 {
-                    if (adj_matrix[i][j] == 0)
+                    if (adj_matrix[i][j] == 1 && i != j)
                     {
                         model.addConstr(x[i] + x[j] <= 1, " ");
                     }
@@ -427,21 +416,20 @@ namespace Bin
             cout << e.getErrorCode() << e.getMessage() << endl;
         }
 
-
         return isOptimal;
     }
 
-    void CG::test(int method, std::ofstream *output_file_sampling_stats, std::ofstream *output_file_cg_stats)
+    void CG::test(int method, int method_type, std::ofstream *output_file_sampling_stats, std::ofstream *output_file_cg_stats)
     {
 
         double start_time = get_wall_time();
-        int upper_col_limit = bin.nitems;
+
         initializing_pattern();
 
         min_reduced_cost_exact = -1.0;
         cg_iters = 0;
         double best_nrc = -1.0;
-        int cutoff = 600;
+        double cutoff = 10000;
         double t0;
         double duration;
         bool knapsack_optimal;
@@ -451,6 +439,7 @@ namespace Bin
             cout << "iteration " << cg_iters++ << " : " << endl;
             t0 = get_wall_time();
             solve_restricted_master_problem();
+
             duration = get_wall_time() - t0;
             time_duration_master += duration;
             cout << "time used: " << duration << "\n";
@@ -468,31 +457,33 @@ namespace Bin
             t0 = get_wall_time();
             Pricer *pricer = nullptr;
 
-            if (method == 1)
+            if (method == 1) // MLACO
             {
-                // using gurobi solving directly
-                pricer = new knapsack_solver(method, cutoff, dual_values, bin.capacity, bin.weight, bin.nitems, adj_matrix, adj_list, 0);
+
+                pricer = new MLACO(method, method_type, seed, cutoff, bin.nitems, bin.nitems, bin.nitems, bin.weight, bin.capacity, dual_values, bin.degree_norm, adj_matrix, adj_list, 0);
             }
-            else if (method == 2)
+            else if (method == 2) // MLMMAS
             {
-                // if (cg_iters < 90){
+                pricer = new MLMMAS(method, method_type, cutoff, bin.nitems, bin.nitems, bin.nitems, bin.weight, bin.capacity, dual_values, bin.degree_norm, adj_matrix, adj_list, 0);
+            }
+
+            else if (method == 3) // gurobi solver
+            {
+                pricer = new knapsack_solver(method, method_type, cutoff, dual_values, bin.capacity, bin.weight, bin.nitems, adj_matrix, adj_list, 0);
+            }
+
+            else if (method == 4) // classic ACO
+            {
+                pricer = new ACO(method, method_type, cutoff, bin.nitems, bin.nitems, bin.nitems, bin.weight, bin.capacity, dual_values, adj_matrix, adj_list, 0);
+            }
+            else if (method == 5) // classic MMAS
+            {
+                pricer = new ACO(method, method_type, cutoff, bin.nitems, bin.nitems, bin.nitems, bin.weight, bin.capacity, dual_values, adj_matrix, adj_list, 0);
+            }
+            else if (method == 6) // MLBIN
+            {
                 pricer = new MLBIN(method, cutoff, bin.nitems, bin.nitems, bin.capacity, bin.weight, dual_values, bin.degree_norm, adj_matrix, adj_list, 0);
             }
-            else if (method == 3)
-            {
-                pricer = new ACO(method, cutoff, bin.nitems, bin.nitems, bin.nitems, bin.weight, bin.capacity, dual_values, adj_matrix, adj_list, 0);
-            }
-
-            else if (method == 4)
-            {
-                pricer = new MLACO(method, cutoff, bin.nitems, bin.nitems, bin.nitems, bin.weight, bin.capacity, dual_values, bin.degree_norm, adj_matrix, adj_list, 0);
-            }
-
-            else if (method == 5)
-            {
-                pricer = new MLMMAS(method, cutoff, bin.nitems, bin.nitems, bin.nitems, bin.weight, bin.capacity, dual_values, bin.degree_norm, adj_matrix, adj_list, 0);
-            }
-
             cout << "Pricer set up " << endl;
             pricer->run();
 
@@ -510,15 +501,17 @@ namespace Bin
             cout << "time used: " << duration << "\n";
             time_duration_pricing_heur += duration;
 
-            if (num_ml_sampling_fail <1 && pricer->num_neg_rc_col > 0)
+            if (pricer->num_neg_rc_col > 0)
             {
                 num_heur_runs_success++;
                 cout << "# columns with negative reduced cost found by pricer: " << pricer->num_neg_rc_col << "\n";
                 cout << "minimum reduced cost by pricer is: " << pricer->best_rc << endl;
-                best_nrc = pricer->best_rc;
+                // best_nrc = pricer->best_rc;
                 pricer->include_new_cols_all(pattern_set);
                 num_pattern = pattern_set.size();
-                lg_bound = lp_bound /( 1 - pricer->best_rc );
+
+                lg_bound = -1000;
+
             }
             else
             {
@@ -530,8 +523,7 @@ namespace Bin
                 auto knapsack_cutoff = cutoff - (t0 - start_time);
 
                 //*** using exact Pattern set  ***
-
-                knapsack_optimal = solve_knapsack_conflicted_gurobi_set(knapsack_cutoff, min_reduced_cost_exact);
+                knapsack_optimal = solve_knapsack_conflicted_gurobi(knapsack_cutoff, min_reduced_cost_exact);
                 if (knapsack_optimal)
                 {
                     cout << "minimum reduced cost by exact solver is: " << min_reduced_cost_exact << endl;
@@ -540,16 +532,17 @@ namespace Bin
                     pattern_set.insert(pattern_set.end(), optimal_pattern_set.begin(), optimal_pattern_set.end());
                     cout << "Current column size: " << pattern_set.size() << endl;
                     num_pattern = pattern_set.size();
-                    lg_bound = lp_bound /( 1 - min_reduced_cost_exact);
                 }
-                
-
 
                 duration = get_wall_time() - t0;
                 cout << "time used: " << duration << "\n";
                 time_duration_pricing_heur += duration;
+
+                best_nrc = min_reduced_cost_exact;
+                lg_bound = lp_bound / (1 - best_nrc);
             }
 
+            
             if (output_file_cg_stats != nullptr)
             {
                 (*output_file_cg_stats) << pricer->num_neg_rc_col << ","
@@ -559,23 +552,36 @@ namespace Bin
                                         << pricer->stdev_rc << ","
                                         << lg_bound << endl;
             }
-
             cout << "lp_bound: " << lp_bound << "-----"
                  << "lg_bound: " << lg_bound << endl;
+            cout << "best negative reduced cost " << best_nrc << endl;
             if (pricer != nullptr)
             {
                 pricer = nullptr;
             }
-            if (best_nrc > -0.01)
+            if (std::floor(lp_bound) == std::ceil(lg_bound))
                 break;
-            if (std::ceil(lg_bound) == std::ceil(lp_bound))
+            if (min_reduced_cost_exact > 0.0)
                 break;
             if (get_wall_time() - start_time > cutoff)
                 break;
-            cout << "min_reduced_cost_exact " << min_reduced_cost_exact << endl;
+            // cout << "min_reduced_cost_exact " << min_reduced_cost_exact << endl;
+
         }
+        
+        // cout << "check pattern include in RMP " << endl;
+        // for (auto x=0; x < pattern_set.size(); x++)
+        // {
+        //     for (auto y=0; y < pattern_set[x].size(); y++)
+        //     {
+        //         cout << pattern_set[x][y] << " ";
+        //     }
+        //     cout << endl;
+        // }
+
+
         lp_optimal = knapsack_optimal && min_reduced_cost_exact > -0.01;
-        if (std::ceil(lg_bound) == std::ceil(lp_bound) )
+        if (std::floor(lp_bound) == std::ceil(lg_bound))
         {
             lp_optimal = true;
         }
